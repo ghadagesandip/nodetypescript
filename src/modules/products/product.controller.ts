@@ -38,8 +38,11 @@ export class ProductController extends BaseController {
     try {
       const utils: Utils = new Utils();
       const filters: any = {};
-      if (req.query && req.query.brand) {
-        filters.brand = req.query.brand;
+      if (req.query.brand) {
+        filters.brand = { $regex: req.query.brand, $options: 'i' };
+      }
+      if (req.query.category_id) {
+        filters.category_id = req.query.category_id;
       }
       const options: any = {
         page: req.query.page ? Number(req.query.page) : 1,
