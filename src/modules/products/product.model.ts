@@ -54,12 +54,12 @@ const memoryStorageSchema: Schema = new Schema({
   expandable: {
     type: Number,
   },
-  ram_type:String,
-  ram_speed:String,
-  memory_slots:String,
-  memory_layout:String,
-  hdd_speed:String,
-  hdd_type:String
+  ram_type: String,
+  ram_speed: String,
+  memory_slots: String,
+  memory_layout: String,
+  hdd_speed: String,
+  hdd_type: String,
 });
 
 const cameraSchema: Schema = new Schema({
@@ -106,11 +106,11 @@ const connectivitySchema: Schema = new Schema({
     type: String,
     default: false,
   },
-  usb_3_0_slots:String,
-  usb_2_0_slots:String,
-  sd_card_reader:String,
-  headphone_jack:String,
-  microphone_jack:String
+  usb_3_0_slots: String,
+  usb_2_0_slots: String,
+  sd_card_reader: String,
+  headphone_jack: String,
+  microphone_jack: String,
 });
 
 export const productSchema: Schema = new Schema({
