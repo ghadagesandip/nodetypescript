@@ -47,4 +47,11 @@ export class ProductLib {
       _id: id,
     });
   }
+
+  public async findAndUpdateMany(
+    brand: String,
+    id: Types.ObjectId,
+  ): Promise<any> {
+    return productModel.updateMany({brand:brand}, { $set: {brand:id} }, { new: true });
+  }
 }

@@ -113,6 +113,37 @@ const connectivitySchema: Schema = new Schema({
   microphone_jack: String,
 });
 
+const offerSchema:Schema=new Schema({
+  no_cost_EMI:String,
+  special_price:[
+    {
+      type:String
+    }
+  ],
+  bank_offer:[{
+    type:String
+  }],
+  partner_offer:[{
+    type:String
+  }]
+  
+});
+
+const reviewRatingSchema:Schema=new Schema({
+    review:[
+      {
+        rating:Number,
+        user_id:{
+          type:'ObjectId',
+          ref:''
+        },
+        comment:String
+      }
+    ],
+    avg_rating:Number,
+    total_review:Number
+});
+
 export const productSchema: Schema = new Schema({
   category_id: {
     type: 'ObjectId',
@@ -149,6 +180,13 @@ export const productSchema: Schema = new Schema({
   memory_storage: memoryStorageSchema,
   camera: cameraSchema,
   connectivity_feature: connectivitySchema,
+  highlight: [
+    {
+      type: String,
+    },
+  ],
+  offer:offerSchema,
+  review_rating:reviewRatingSchema,
   isDelete: {
     type: Boolean,
     default: false,

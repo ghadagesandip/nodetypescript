@@ -5,6 +5,7 @@ import { CartController } from './modules/cart/cart.controller';
 import { CategoryController } from './modules/category/category.controller';
 import { ProductController } from './modules/products/product.controller';
 import { UserController } from './modules/user/user.controller';
+import { BrandController } from './modules/brand/brand.controller';
 
 export function registerRoutes(app: express.Application): void {
   new UserController().register(app);
@@ -12,4 +13,5 @@ export function registerRoutes(app: express.Application): void {
   new CategoryController().register(app);
   new ProductController().register(app);
   new CartController().register(app);
+  new BrandController().register(app);
 }

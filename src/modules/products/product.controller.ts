@@ -25,7 +25,7 @@ export class ProductController extends BaseController {
     this.router.get('/byCategoryId/:id', this.getProductsByCategoryId);
     this.router.get('/home-list', this.getHomeList);
     this.router.get('/:id/details', this.getDetails);
-
+    //this.router.put('/:id',this.updateProductBybrand)
     this.router.get('/',  authHelper.guard, this.getProducts);
     this.router.put('/:id', authHelper.guard, this.updateProduct);
     this.router.delete('/:id', authHelper.guard, this.deleteProduct);
@@ -35,6 +35,19 @@ export class ProductController extends BaseController {
       authHelper.validation,
       this.addProduct,
     );
+  }
+
+  public async updateProductBybrand(req: Request, res: Response): Promise<void> {
+    const brand: string = req.body.brand;
+    const id: Types.ObjectId = req.body.id;
+    try {
+      const product: any = await new ProductLib().findAndUpdateMany(brand, id);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProductBybrand');
+    }
   }
 
   public async getProducts(req: Request, res: Response): Promise<void> {
@@ -146,12 +159,13 @@ export class ProductController extends BaseController {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
         select: 'images name price discount brand',
+        populate: {path:'category_id', model: 'Category'}
       };
       const user: ProductLib = new ProductLib();
       const users: PaginateResult<IProduct> = await user.getProduct(
         filters,
         options,
-      );
+      );     
       res.locals.data = users.docs;
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);
