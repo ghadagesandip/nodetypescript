@@ -9,6 +9,6 @@ export const brandRule: any = {
     check('category_id')
       .not()
       .isEmpty()
-      .withMessage('Brand id is required')
+      .withMessage('Brand id is required'),
   ],
 };

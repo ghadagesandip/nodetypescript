@@ -3,7 +3,7 @@ import { brandModel } from './brand.model';
 import { IBrand } from './brand.type';
 
 const isDelete: any = { isDelete: false };
-const listFields:any=['name','image','category_id','description']
+const listFields: any = ['name', 'image', 'category_id', 'description'];
 
 /**
  * BrandLib
@@ -25,7 +25,7 @@ export class BrandLib {
   }
 
   public async addBrand(data: IBrand): Promise<IBrand> {
-    data.name=data.name.charAt(0).toUpperCase() + data.name.slice(1);
+    data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
     const brandObj: IBrand = new brandModel(data);
 
     return brandObj.save();

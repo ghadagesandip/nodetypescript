@@ -52,6 +52,6 @@ export class ProductLib {
     brand: String,
     id: Types.ObjectId,
   ): Promise<any> {
-    return productModel.updateMany({brand:brand}, { $set: {brand:id} }, { new: true });
+    return productModel.updateMany({brand: brand}, { $set: {brand: id} }, { new: true });
   }
 }

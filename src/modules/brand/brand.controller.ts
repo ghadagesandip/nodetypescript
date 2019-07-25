@@ -36,8 +36,8 @@ export class BrandController extends BaseController {
 
 /**
  * List of all brands
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
   public async listBrands(req: Request, res: Response): Promise<void> {
     try {
@@ -53,8 +53,8 @@ export class BrandController extends BaseController {
 
 /**
  * Get brand by id
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
   public async getBrand(req: Request, res: Response): Promise<void> {
     try {
@@ -74,9 +74,9 @@ export class BrandController extends BaseController {
   }
 
 /**
- * Insert Brand 
- * @param req 
- * @param res 
+ * Insert Brand
+ * @param req
+ * @param res
  */
   public async addBrand(req: Request, res: Response): Promise<void> {
     try {

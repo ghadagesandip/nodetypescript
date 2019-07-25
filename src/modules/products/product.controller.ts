@@ -159,13 +159,13 @@ export class ProductController extends BaseController {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
         select: 'images name price discount brand',
-        populate: {path:'category_id', model: 'Category'}
+        populate: {path: 'category_id', model: 'Category'},
       };
       const user: ProductLib = new ProductLib();
       const users: PaginateResult<IProduct> = await user.getProduct(
         filters,
         options,
-      );     
+      );
       res.locals.data = users.docs;
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);

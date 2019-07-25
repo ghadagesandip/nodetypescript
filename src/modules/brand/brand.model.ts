@@ -8,8 +8,8 @@ export const brandSchema: Schema = new Schema(
       required: true,
       unique: true,
     },
-    image:{
-      type:String
+    image: {
+      type: String,
     },
     category_id: {
       type: 'ObjectId',

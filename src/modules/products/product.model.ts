@@ -113,35 +113,35 @@ const connectivitySchema: Schema = new Schema({
   microphone_jack: String,
 });
 
-const offerSchema:Schema=new Schema({
-  no_cost_EMI:String,
-  special_price:[
+const offerSchema: Schema = new Schema({
+  no_cost_EMI: String,
+  special_price: [
     {
-      type:String
-    }
+      type: String,
+    },
   ],
-  bank_offer:[{
-    type:String
+  bank_offer: [{
+    type: String,
   }],
-  partner_offer:[{
-    type:String
-  }]
-  
+  partner_offer: [{
+    type: String,
+  }],
+
 });
 
-const reviewRatingSchema:Schema=new Schema({
-    review:[
+const reviewRatingSchema: Schema = new Schema({
+    review: [
       {
-        rating:Number,
-        user_id:{
-          type:'ObjectId',
-          ref:''
+        rating: Number,
+        user_id: {
+          type: 'ObjectId',
+          ref: '',
         },
-        comment:String
-      }
+        comment: String,
+      },
     ],
-    avg_rating:Number,
-    total_review:Number
+    avg_rating: Number,
+    total_review: Number,
 });
 
 export const productSchema: Schema = new Schema({
@@ -185,8 +185,8 @@ export const productSchema: Schema = new Schema({
       type: String,
     },
   ],
-  offer:offerSchema,
-  review_rating:reviewRatingSchema,
+  offer: offerSchema,
+  review_rating: reviewRatingSchema,
   isDelete: {
     type: Boolean,
     default: false,
