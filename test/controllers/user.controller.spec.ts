@@ -35,13 +35,13 @@ before(() => {
 
 describe('User module', () => {
   describe('"usercontroller.getUsers()"', () => {
-    it('should should list users', async () => {
+    it('should list users', async () => {
       try {
-        const users: any = await request(app).get('/api/users');
-
+        const users: any = await request(app).get('/api/products/home-list');
+        console.log('user', users);
         logger.info(JSON.stringify({ 'jso data': users }));
       } catch (err) {
-        logger.log('err: ::', err);
+        logger.log('err: ::', err.statusCode);
         expect(err.statusCode).to.be.equal(401); // this is called
       }
     });
