@@ -45,7 +45,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security:  
+      - authorization: []
   /api/products:
     post:
       tags:
@@ -84,7 +85,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security:  
+      - authorization: []
   /api/categories/{categoryId}:
     get:
       tags:
@@ -105,8 +107,7 @@ paths:
           description: OK
           schema:
             type: string
-      security: 
-      - authorization: []
+      security: []
     delete:
       tags:
         - Category
@@ -226,8 +227,7 @@ paths:
           description: OK
           schema:
             type: string
-      security: 
-      - authorization: []
+      security: []
   /api/users/{userId}:
     get:
       tags:
