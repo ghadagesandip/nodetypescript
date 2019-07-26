@@ -67,7 +67,7 @@ export class CategoryLib {
   }
 
   public async getCategoryWiseBrand(catId : string): Promise<any> {
-    return brandModel.aggregate([
+    return productModel.aggregate([
       { $match: { $and: [ { isDelete: false }, { category_id: catId }] }},
       {
         $lookup: {
