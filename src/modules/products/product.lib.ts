@@ -45,13 +45,7 @@ export class ProductLib {
   public async getProductById(id: string): Promise<IProduct> {
     return productModel.findOne({
       _id: id,
-    });
+    }).populate({path: 'brand', model: 'Brand'});
   }
 
-  public async findAndUpdateMany(
-    brand: String,
-    id: Types.ObjectId,
-  ): Promise<any> {
-    return productModel.updateMany({brand: brand}, { $set: {brand: id} }, { new: true });
-  }
 }

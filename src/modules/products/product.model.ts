@@ -157,9 +157,10 @@ export const productSchema: Schema = new Schema({
     unique: true,
   },
   brand: {
-    type: String,
+    type: 'ObjectId',
     required: true,
-  },
+    ref: 'Brand',
+    },
   price: {
     type: Number,
     required: true,

@@ -1,4 +1,6 @@
 import { Types } from 'mongoose';
+import { brandModel } from '../brand/brand.model';
+import { productModel } from '../products/product.model';
 import { categoryModel } from './category.model';
 import { ICategory } from './category.type';
 
@@ -13,7 +15,7 @@ export class CategoryLib {
     return categoryModel.find({ ...isDelete }, listFields);
   }
 
-  public async getCategoryById(id: number): Promise<ICategory> {
+  public async getCategoryById(id: string): Promise<ICategory> {
     return categoryModel.findOne({ ...{ _id: id }, ...isDelete });
   }
 
@@ -57,6 +59,36 @@ export class CategoryLib {
             },
             {
               $limit: 4,
+            },
+          ],
+        },
+      },
+    ]);
+  }
+
+  public async getCategoryWiseBrand(catId : string): Promise<any> {
+    return brandModel.aggregate([
+      { $match: { $and: [ { isDelete: false }, { category_id: catId }] }},
+      {
+        $lookup: {
+          from: 'products',
+          as: 'brands',
+          let: {
+            br_id: '$brand',
+          },
+         pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ['$brand', '$$br_id'] },
+                    { $eq: ['$isDelete', false] },
+                  ],
+                },
+              },
+            },
+            {
+              $group: { _id: '$brand' , count: { $sum : 1 }},
             },
           ],
         },
