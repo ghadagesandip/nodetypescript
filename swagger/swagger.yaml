@@ -3,7 +3,7 @@ info:
   title: ShoppingApp
   description: Neosoft Shopping App
   version: 1.0.0
-host: ''
+host: 'localhost:3000'
 schemes:
   - http
 paths:
@@ -105,7 +105,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
     delete:
       tags:
         - Category
@@ -225,7 +226,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
   /api/users/{userId}:
     get:
       tags:
@@ -238,7 +240,7 @@ paths:
       parameters:
       - name: "userId"
         in: "path"
-        description: "_id of category to return"
+        description: "_id of userId to return"
         required: true
         type: "string"
       responses:
@@ -246,7 +248,66 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
+    put:
+      tags:
+        - User
+      summary: Update user by Id
+      description: Update user by Id
+      operationId: updateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "_id of userId to return"
+          required: true
+          type: "string"
+        - name: body
+          in: body
+          description: the "User" model
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      description: Delete User
+      operationId: deleteUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "_id of userId to return"
+        required: true
+        type: "string"
+      - name: body
+        in: body
+        description: the "User" model
+        required: true
+        schema:
+          $ref: '#/definitions/AuthUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
   /api/users:
     get:
       tags:
@@ -261,14 +322,39 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
   /api/auth/login:
     post:
       tags:
-        - User
+        - Auth
       summary: User signin
       description: User signin
       operationId: userSignin
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: the "User" model
+          required: true
+          schema:
+            $ref: '#/definitions/AuthUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/auth/sign-up:
+    post:
+      tags:
+        - Auth
+      summary: User signup
+      description: User signup
+      operationId: userSignup
       consumes:
         - application/json
       produces:
@@ -286,13 +372,13 @@ paths:
           schema:
             type: string
       security: []
-  /api/auth/sign-up:
+  /api/auth/forgot-password:
     post:
       tags:
-        - User
-      summary: User signup
-      description: User signup
-      operationId: userSignup
+        - Auth
+      summary: User ForgotPassword
+      description: User ForgotPassword
+      operationId: userForgotPassword
       consumes:
         - application/json
       produces:
@@ -303,7 +389,7 @@ paths:
           description: the "User" model
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/ForgotPassword'
       responses:
         '200':
           description: OK
@@ -444,6 +530,43 @@ definitions:
       password:
         type: string
         x-example: jitendra123
+  UpdateUser:
+    description: Model for UpdateUser
+    required:
+      - email
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
+      password:
+        type: string
+        x-example: jitendra123
+      first_name:
+        type: string
+        x-example: Jitendra
+      last_name:
+        type: string
+        x-example: Kumar
+  AuthUser:
+    description: Model for AuthUser
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
+      password:
+        type: string
+        x-example: jitendra123
+  ForgotPassword:
+    description: Model for ForgotPassword
+    required:
+      - email
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
   Cart:
     description: Model for Cart
     required:
@@ -476,6 +599,8 @@ security: []
 tags:
   - name: User
     description: Operations about User
+  - name: Auth
+    description: Operations about Auth
   - name: Product
     description: Operations about Product
   - name: Category
