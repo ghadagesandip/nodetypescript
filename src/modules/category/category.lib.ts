@@ -60,6 +60,22 @@ export class CategoryLib {
             {
               $limit: 4,
             },
+            {
+              $lookup:
+              {
+                from: 'brands',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'brand',
+              },
+            },
+            {
+              $project: {
+                product: 1,
+                name: { $arrayElemAt: [ '$brand.name', 0 ] },
+                _id: 0,
+              },
+            },
           ],
         },
       },
