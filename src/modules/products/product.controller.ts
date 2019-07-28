@@ -138,7 +138,7 @@ export class ProductController extends BaseController {
     try {
       const utils: Utils = new Utils();
       const filters: any = {};
-      if (req.query && req.query.brand) {
+      if (req.query && req.query.brand && req.query.brand !== 'undefined') {
         filters.brand = req.query.brand;
       }
       filters.category_id = req.params.id;

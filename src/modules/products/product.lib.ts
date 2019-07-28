@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson';
 import { PaginateResult, Types } from 'mongoose';
 import { productModel } from './product.model';
 import { IProduct } from './product.type';
@@ -51,7 +52,7 @@ export class ProductLib {
   public async getBrandCountByCategory(catId : Types.ObjectId): Promise<any> {
 
     return productModel.aggregate([
-      { $match: { ...isDelete } },
+      { $match: { ...isDelete, category_id : catId } },
       {
         $group: {
           _id: { brand : '$brand' },

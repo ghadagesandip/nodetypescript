@@ -135,7 +135,7 @@ export class CategoryController extends BaseController {
   }
 
   public async getBrandWiseCountForCategory(req: Request, res: Response): Promise<void> {
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = Types.ObjectId(req.params.id);
     try {
       const categories: any =  await new ProductLib().getBrandCountByCategory(id);
       res.locals.data = categories;
