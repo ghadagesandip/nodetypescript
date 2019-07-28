@@ -5,7 +5,7 @@ import { categoryModel } from './category.model';
 import { ICategory } from './category.type';
 
 const isDelete: any = { isDelete: false };
-const listFields: string = 'name';
+const listFields: string = 'name slug';
 
 /**
  * CategoryLib
@@ -81,6 +81,5 @@ export class CategoryLib {
       },
     ]);
   }
-
 
 }

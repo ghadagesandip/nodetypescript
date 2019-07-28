@@ -6,5 +6,9 @@ export const categoryRule: any = {
       .not()
       .isEmpty()
       .withMessage('Category name is required'),
+    check('slug')
+      .not()
+      .isEmpty()
+      .withMessage('Category name is required'),
   ],
 };
