@@ -1,4 +1,3 @@
-import { ObjectId } from 'bson';
 import { PaginateResult, Types } from 'mongoose';
 import { productModel } from './product.model';
 import { IProduct } from './product.type';
