@@ -153,11 +153,6 @@ export class ProductController extends BaseController {
         filters,
         options,
       );
-      const categoryLib: CategoryLib = new CategoryLib();
-      const categoryId: string =  req.params.id;
-      const categories: any = await categoryLib.getCategoryWiseBrand(
-        categoryId,
-      );
       res.locals.data = users.docs;
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);

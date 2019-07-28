@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { AuthHelper, ResponseHandler } from '../../helpers';
 import { BaseController } from '../BaseController';
+import { ProductLib } from './../products/product.lib';
 import { CategoryLib } from './category.lib';
 import { categoryRule } from './category.rule';
 import { ICategory } from './category.type';
@@ -22,6 +23,7 @@ export class CategoryController extends BaseController {
     const authHelper: AuthHelper = new AuthHelper();
 
     this.router.get('/dashboard-products', this.getHomeList);
+    this.router.get('/:id/brand-count', this.getBrandWiseCountForCategory);
     this.router.get('/', this.listCategories);
     this.router.get('/:id', this.getCategory);
     this.router.put('/:id', authHelper.guard, this.updateCategory);
@@ -130,5 +132,18 @@ export class CategoryController extends BaseController {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'deleteCategory');
     }
+  }
+
+  public async getBrandWiseCountForCategory(req: Request, res: Response): Promise<void> {
+    const id: Types.ObjectId = req.params.id;
+    try {
+      const categories: any =  await new ProductLib().getBrandCountByCategory(id);
+      res.locals.data = categories;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'deleteCategory');
+    }
+
   }
 }
