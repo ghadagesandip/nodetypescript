@@ -40,6 +40,13 @@ const displaySchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  brightness: String,
+  contrast_ratio: String,
+  analog_tv_reception: String,
+  view_angle: String,
+  panel_type: String,
+  digital_noise_filter: String,
+  aspect_ratio: String,
 });
 
 const memoryStorageSchema: Schema = new Schema({
