@@ -26,11 +26,11 @@ export class CategoryController extends BaseController {
     this.router.get('/:id/brand-count', this.getBrandWiseCountForCategory);
     this.router.get('/', this.listCategories);
     this.router.get('/:id', this.getCategory);
-    this.router.put('/:id', authHelper.guard, this.updateCategory);
-    this.router.delete('/:id', authHelper.guard, this.deleteCategory);
+    this.router.put('/:id', authHelper.adminGuard , this.updateCategory);
+    this.router.delete('/:id', authHelper.adminGuard, this.deleteCategory);
     this.router.post(
       '/',
-      authHelper.guard,
+      authHelper.adminGuard,
       categoryRule.forAdd,
       authHelper.validation,
       this.addCategory,

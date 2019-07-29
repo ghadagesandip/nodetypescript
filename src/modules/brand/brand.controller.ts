@@ -23,11 +23,11 @@ export class BrandController extends BaseController {
 
     this.router.get('/', this.listBrands);
     this.router.get('/:id', this.getBrand);
-    this.router.put('/:id', authHelper.guard, this.updateBrand);
-    this.router.delete('/:id', authHelper.guard, this.deleteBrand);
+    this.router.put('/:id', authHelper.adminGuard, this.updateBrand);
+    this.router.delete('/:id', authHelper.adminGuard, this.deleteBrand);
     this.router.post(
       '/',
-      authHelper.guard,
+      authHelper.adminGuard,
       brandRule.forAdd,
       authHelper.validation,
       this.addBrand,

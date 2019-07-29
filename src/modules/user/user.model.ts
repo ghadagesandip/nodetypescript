@@ -2,7 +2,7 @@ import { Document, Model, model, PaginateModel, Schema } from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { IUser } from './user.type';
 
-enum UserRole {
+export enum UserRole {
   admin = 'admin',
   customer = 'customer',
 }

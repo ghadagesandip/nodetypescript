@@ -42,11 +42,11 @@ const displaySchema: Schema = new Schema({
   },
   brightness: String,
   contrast_ratio: String,
-  analog_tv_reception: String,
-  view_angle: String,
-  panel_type: String,
-  digital_noise_filter: String,
-  aspect_ratio: String,
+    analog_tv_reception: String,
+    view_angle: String,
+    panel_type: String,
+    digital_noise_filter: String,
+    aspect_ratio: String,
 });
 
 const memoryStorageSchema: Schema = new Schema({
@@ -120,6 +120,14 @@ const connectivitySchema: Schema = new Schema({
   microphone_jack: String,
 });
 
+const smartTvFeaturesSchema: Schema = new Schema({
+supported_apps: String,
+operating_system: String,
+screen_mirroring: String,
+content_providers: String,
+supported_devices_for_casting: String,
+});
+
 const offerSchema: Schema = new Schema({
   no_cost_EMI: String,
   special_price: [
@@ -188,6 +196,7 @@ export const productSchema: Schema = new Schema({
   memory_storage: memoryStorageSchema,
   camera: cameraSchema,
   connectivity_feature: connectivitySchema,
+  smart_tv_feature: smartTvFeaturesSchema,
   highlight: [
     {
       type: String,

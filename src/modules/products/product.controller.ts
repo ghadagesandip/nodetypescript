@@ -26,11 +26,11 @@ export class ProductController extends BaseController {
     this.router.get('/home-list', this.getHomeList);
     this.router.get('/:id/details', this.getDetails);
     this.router.get('/',  authHelper.guard, this.getProducts);
-    this.router.put('/:id', authHelper.guard, this.updateProduct);
-    this.router.delete('/:id', authHelper.guard, this.deleteProduct);
+    this.router.put('/:id', authHelper.adminGuard, this.updateProduct);
+    this.router.delete('/:id', authHelper.adminGuard, this.deleteProduct);
     this.router.post(
       '/',
-      authHelper.guard,
+      authHelper.adminGuard,
       authHelper.validation,
       this.addProduct,
     );
