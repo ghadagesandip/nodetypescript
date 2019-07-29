@@ -36,7 +36,7 @@ before(async () => {
 
 describe('User module', () => {
   describe('"usercontroller.getUsers()"', () => {
-    it('should should list users', async () => {
+    it('should list users', async () => {
       try {
         const users: any = await request(server).get('/api/categories/dashboard-products');
 
