@@ -4,7 +4,7 @@ import { IUser } from './user.type';
 
 enum UserRole {
   admin = 'admin',
-  user = 'user',
+  customer = 'customer',
 }
 
 export const userSchema: Schema = new Schema(
@@ -31,7 +31,7 @@ export const userSchema: Schema = new Schema(
     },
     userRole: {
       type: String,
-      default: UserRole.user,
+      default: UserRole.customer,
     },
     tmp_forgot_pass_code: {
       type: String,
