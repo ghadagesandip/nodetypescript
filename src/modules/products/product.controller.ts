@@ -138,7 +138,7 @@ export class ProductController extends BaseController {
     try {
       const utils: Utils = new Utils();
       const filters: any = {};
-      if (req.query && req.query.brand) {
+      if (req.query && req.query.brand && req.query.brand !== 'undefined') {
         filters.brand = req.query.brand;
       }
       filters.category_id = req.params.id;
@@ -152,11 +152,6 @@ export class ProductController extends BaseController {
       const users: PaginateResult<IProduct> = await user.getProduct(
         filters,
         options,
-      );
-      const categoryLib: CategoryLib = new CategoryLib();
-      const categoryId: string =  req.params.id;
-      const categories: any = await categoryLib.getCategoryWiseBrand(
-        categoryId,
       );
       res.locals.data = users.docs;
       res.locals.pagination = utils.getPaginateResponse(users);

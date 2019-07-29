@@ -5,7 +5,7 @@ import { categoryModel } from './category.model';
 import { ICategory } from './category.type';
 
 const isDelete: any = { isDelete: false };
-const listFields: string = 'name';
+const listFields: string = 'name slug';
 
 /**
  * CategoryLib
@@ -60,39 +60,26 @@ export class CategoryLib {
             {
               $limit: 4,
             },
+            {
+              $lookup:
+              {
+                from: 'brands',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'brand',
+              },
+            },
+            {
+              $project: {
+                product: 1,
+                name: { $arrayElemAt: [ '$brand.name', 0 ] },
+                _id: 0,
+              },
+            },
           ],
         },
       },
     ]);
   }
 
-  public async getCategoryWiseBrand(catId : string): Promise<any> {
-    return productModel.aggregate([
-      { $match: { $and: [ { isDelete: false }, { category_id: catId }] }},
-      {
-        $lookup: {
-          from: 'products',
-          as: 'brands',
-          let: {
-            br_id: '$brand',
-          },
-         pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [
-                    { $eq: ['$brand', '$$br_id'] },
-                    { $eq: ['$isDelete', false] },
-                  ],
-                },
-              },
-            },
-            {
-              $group: { _id: '$brand' , count: { $sum : 1 }},
-            },
-          ],
-        },
-      },
-    ]);
-  }
 }
