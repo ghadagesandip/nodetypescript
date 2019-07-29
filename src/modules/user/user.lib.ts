@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { PaginateResult } from 'mongoose';
 import { Messages } from './../../constants';
 import { logger } from './../../logger';
-import { userModel } from './user.model';
+import { userModel, UserRole } from './user.model';
 import { IUser, IUserRequest } from './user.type';
 
 /**
@@ -77,10 +77,18 @@ export class UserLib {
         user.password,
       );
       if (isValidPass) {
-        const token: string = jwt.sign({ id: user._id }, process.env.SECRET, {
-          expiresIn: '24h',
-        });
-        user.password = undefined;
+        let token: string;
+        if (user.userRole === UserRole.admin) {
+          token = jwt.sign({ id: user._id, userRole: user.userRole }, process.env.ADMIN_SECRET, {
+            expiresIn: '24h',
+          });
+          user.password = undefined;
+        } else {
+          token = jwt.sign({ id: user._id, userRole: user.userRole }, process.env.SECRET, {
+            expiresIn: '24h',
+          });
+          user.password = undefined;
+        }
 
         return { user, token };
       } else {
