@@ -145,7 +145,7 @@ export class ProductController extends BaseController {
       const options: any = {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
-        select: 'images name price discount brand',
+        select: 'images name highlight price discount brand',
         populate: [{path: 'category_id', model: 'Category'}, { path: 'brand', model: 'Brand'}],
       };
       const user: ProductLib = new ProductLib();
