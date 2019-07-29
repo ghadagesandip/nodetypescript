@@ -268,7 +268,7 @@ paths:
           type: "string"
         - name: body
           in: body
-          description: the "User" model
+          description: the "UpdateUser" model
           required: true
           schema:
             $ref: '#/definitions/UpdateUser'
@@ -297,7 +297,7 @@ paths:
         type: "string"
       - name: body
         in: body
-        description: the "User" model
+        description: the "AuthUser" model
         required: true
         schema:
           $ref: '#/definitions/AuthUser'
@@ -338,7 +338,7 @@ paths:
       parameters:
         - name: body
           in: body
-          description: the "User" model
+          description: the "AuthUser" model
           required: true
           schema:
             $ref: '#/definitions/AuthUser'
@@ -489,6 +489,78 @@ paths:
             type: string
       security: 
       - authorization: []
+  /api/categories/dashboard-products:
+    get:
+      tags:
+        - Site
+      summary: Get Categories Dashboard Products
+      description: Get Categories Dashboard Products
+      operationId: getCategoriesDashboardProducts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/categories/{categoryId}/brand-count:
+    get:
+      tags:
+        - Site
+      summary: Get category brand count
+      description: Get category brand count
+      operationId: getBrandCountByCategoryId
+      produces:
+        - application/json
+      parameters:
+      - name: "categoryId"
+        in: "path"
+        description: "_id of category to return"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/products/byCategoryId/{categoryId}:
+    get:
+      tags:
+        - Site
+      summary: Get products by category
+      description: Get products by category
+      operationId: getProductsByCategoryId
+      produces:
+        - application/json
+      parameters:
+      - name: "categoryId"
+        in: "path"
+        description: "_id of category to return"
+        required: true
+        type: "string"
+      - name: "pageNo"
+        in: "query"
+        description: "Page Number"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Record limit"
+        required: false
+        type: "string"
+      - name: "brandId"
+        in: "query"
+        description: "_id of brand to return"
+        required: false
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
 definitions:
   Product:
     description: Model for Product
@@ -605,3 +677,5 @@ tags:
     description: Operations about Product
   - name: Category
     description: Operations about Category
+  - name: Site
+    description: Operations about Site
