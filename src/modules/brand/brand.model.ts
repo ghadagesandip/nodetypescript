@@ -11,11 +11,14 @@ export const brandSchema: Schema = new Schema(
     image: {
       type: String,
     },
-    category_id: {
-      type: 'ObjectId',
-      required: true,
-      ref: 'Category',
-    },
+    category_id: [
+      {
+        type: 'ObjectId',
+        unique: true,
+        required: true,
+        ref: 'Category',
+      },
+    ],
     description: {
       type: String,
     },
