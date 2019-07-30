@@ -561,6 +561,135 @@ paths:
           schema:
             type: string
       security: []
+  /api/brands:
+    get:
+      tags:
+        - Brand
+      summary: Get Brands
+      description: Get Brands List
+      operationId: listBrands
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Brands'
+      security: []
+    post:
+      tags:
+        - Brand
+      summary: Add brand into the collection
+      description: Add brand into the collection, this API is only authorized to "admin" user role
+      operationId: addBrand
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "the Brand model"
+        required: true       
+        schema:
+          $ref: '#/definitions/Brands'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/brands/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Get Brand by id
+      description: Get brand details by passing brand id in params
+      operationId: getBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Brand details will return for given brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Brands'
+      security: []
+    put:
+      tags:
+        - Brand
+      summary: Update brand details by brand id
+      description: Update brand details using brand id, this API is only authorized to "admin" user role
+      operationId: updateBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "The brand id to update the fields of particular brand"
+        required: true
+        type: "string"
+      - name: body
+        in: body
+        description: the "Brand" model
+        required: true
+        schema:
+          $ref: '#/definitions/Brands'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security:
+      - authorization: []
+    delete:
+      tags:
+        - Brand
+      summary: Delete brand
+      description: Delete brand by using brand id, this API is only authorized to "admin" user role
+      operationId: deleteBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Delete the brand details using brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security:
+      - authorization: []
+  /api/brands/filter/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Get brand with it's products
+      description: Get brand details using brand id and get all it's products
+      operationId: filterProdByBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Brand details as well as it's products will return for given brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []  
 definitions:
   Product:
     description: Model for Product
@@ -662,6 +791,24 @@ definitions:
       name:
         type: string
         x-example: mobile
+  Brands:
+    description: Model for Brands
+    required:
+      - name
+      - category_id
+    properties:
+      description:
+        type: string
+        x-example: Apple is a company...
+      name:
+        type: string
+        x-example: Apple
+      image:
+        type: string
+        x-example: https://url_to_image
+      category_id:
+        type: string
+        x-example: 5d39a7c97c381d5b46c57d86      
 securityDefinitions: 
   authorization:
     type: "apiKey"
@@ -679,3 +826,5 @@ tags:
     description: Operations about Category
   - name: Site
     description: Operations about Site
+  - name: Brand
+    description: Operations about Brand   

@@ -23,6 +23,7 @@ export class BrandController extends BaseController {
 
     this.router.get('/', this.listBrands);
     this.router.get('/:id', this.getBrand);
+    this.router.get('/filter/:id', this.filterProdByBrand);
     this.router.put('/:id', authHelper.adminGuard, this.updateBrand);
     this.router.delete('/:id', authHelper.adminGuard, this.deleteBrand);
     this.router.post(
@@ -126,6 +127,27 @@ export class BrandController extends BaseController {
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'deleteBrand');
+    }
+  }
+/**
+ * Get products by brand (filter)
+ * @param req
+ * @param res
+ */
+  public async filterProdByBrand(req: Request, res: Response): Promise<void> {
+    try {
+      const brandLib: BrandLib = new BrandLib();
+      const brand: IBrand = await brandLib.filterByBrand(
+        req.params.id,
+      );
+      if (!brand) {
+        throw Error('Invalid brand id');
+      }
+      res.locals.data = brand;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'getBrand');
     }
   }
 }
