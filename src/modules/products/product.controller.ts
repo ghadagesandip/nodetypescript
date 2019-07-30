@@ -25,9 +25,10 @@ export class ProductController extends BaseController {
     this.router.get('/byCategoryId/:id', this.getProductsByCategoryId);
     this.router.get('/home-list', this.getHomeList);
     this.router.get('/:id/details', this.getDetails);
-    this.router.get('/',  authHelper.guard, this.getProducts);
+    this.router.get('/', authHelper.guard, this.getProducts);
     this.router.put('/:id', authHelper.guard, this.updateProduct);
     this.router.delete('/:id', authHelper.guard, this.deleteProduct);
+    this.router.post('/updateProductReviewRating', authHelper.guard, this.updateProductReviewRating);
     this.router.post(
       '/',
       authHelper.guard,
@@ -146,7 +147,7 @@ export class ProductController extends BaseController {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
         select: 'images name highlight price discount brand',
-        populate: [{path: 'category_id', model: 'Category'}, { path: 'brand', model: 'Brand'}],
+        populate: [{ path: 'category_id', model: 'Category' }, { path: 'brand', model: 'Brand' }],
       };
       const user: ProductLib = new ProductLib();
       const users: PaginateResult<IProduct> = await user.getProduct(
@@ -177,5 +178,22 @@ export class ProductController extends BaseController {
       ResponseHandler.JSONERROR(req, res, 'updateProduct');
     }
 
+  }
+
+  /**
+   * Update Product Review Rating by id
+   * @param req
+   * @param res
+   */
+  public async updateProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const id: Types.ObjectId = req.body.loggedinUserId;
+      const product: IProduct = await new ProductLib().getProductReviewRating(id, req.body.productId, req.body);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
   }
 }

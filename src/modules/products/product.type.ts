@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import { Document } from 'mongoose';
 
 export interface IProduct extends Document {
@@ -14,4 +15,17 @@ export interface IProduct extends Document {
   camera?: any;
   connectivity_feature?: any;
   idDelete: Boolean;
+  review_rating: IReviewRating;
+}
+
+export interface IReviewRating {
+  review: Object[];
+  avg_rating: number;
+  total_review: number;
+}
+
+export interface IReview {
+  rating: number;
+  user_id: ObjectID;
+  comment: String;
 }

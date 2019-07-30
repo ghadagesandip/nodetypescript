@@ -1,6 +1,7 @@
+import { ObjectID } from 'bson';
 import { PaginateResult, Types } from 'mongoose';
 import { productModel } from './product.model';
-import { IProduct } from './product.type';
+import { IProduct, IReview, IReviewRating } from './product.type';
 
 const isDelete: any = { isDelete: false };
 
@@ -46,6 +47,44 @@ export class ProductLib {
     return productModel.findOne({
       _id: id,
     }).populate({path: 'brand', model: 'Brand'});
+  }
+
+  public async getProductReviewRating(id: ObjectID, productId: string, data: IReview): Promise<IProduct> {
+    const ratingObj: IReview = {
+      user_id: id,
+      rating: data.rating,
+      comment: data.comment,
+    };
+    const product: IProduct = await this.getProductById(productId);
+    if (!product.review_rating) {
+      const reviewRating : IReviewRating = {
+        review: [
+          {
+            user_id: id,
+            rating: data.rating,
+            comment: data.comment,
+          },
+        ],
+        avg_rating: data.rating,
+        total_review: 1,
+      };
+      product.review_rating = reviewRating;
+    }
+    product.review_rating.review.push(ratingObj);
+    const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
+    product.review_rating.total_review = product.review_rating.review.length;
+    product.review_rating.avg_rating = rating / product.review_rating.total_review;
+
+    return this.findByIdAndUpdate(new ObjectID(productId), product);
+  }
+
+  public async calculateProductReviewRating(reviewArray: Object[]): Promise<number> {
+    let rating: number = 0;
+    reviewArray.filter(function(review: IReview):void {
+      rating += review.rating;
+    });
+
+    return rating;
   }
 
   public async getBrandCountByCategory(catId : Types.ObjectId): Promise<any> {
