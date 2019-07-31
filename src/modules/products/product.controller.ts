@@ -4,7 +4,7 @@ import { BaseController } from '../BaseController';
 import { AuthHelper, ResponseHandler, Utils } from './../../helpers';
 import { CategoryLib } from './../category/category.lib';
 import { ProductLib } from './product.lib';
-import { IProduct } from './product.type';
+import { IProduct, IReview, IReviewRating } from './product.type';
 
 /**
  * ProductController
@@ -28,7 +28,10 @@ export class ProductController extends BaseController {
     this.router.get('/', authHelper.guard, this.getProducts);
     this.router.put('/:id', authHelper.guard, this.updateProduct);
     this.router.delete('/:id', authHelper.guard, this.deleteProduct);
-    this.router.post('/updateProductReviewRating', authHelper.guard, this.updateProductReviewRating);
+    this.router.get('/getProductReviewById/:id', this.getProductReviewRatingById);
+    this.router.post('/addProductReview', authHelper.guard, this.addProductReviewRating);
+    this.router.put('/:id/editProductReview/:reviewId', authHelper.guard, this.editProductReviewRating);
+    this.router.delete('/:id/deleteProductReview/:reviewId', authHelper.guard, this.deleteProductReviewRating);
     this.router.post(
       '/',
       authHelper.guard,
@@ -185,15 +188,69 @@ export class ProductController extends BaseController {
    * @param req
    * @param res
    */
-  public async updateProductReviewRating(req: Request, res: Response): Promise<void> {
+  public async addProductReviewRating(req: Request, res: Response): Promise<void> {
     try {
-      const id: Types.ObjectId = req.body.loggedinUserId;
-      const product: IProduct = await new ProductLib().getProductReviewRating(id, req.body.productId, req.body);
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const product: IProduct = await new ProductLib().addProductReview(userId, req.body.productId, req.body);
       res.locals.data = product;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async editProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const productId: string = req.params.id;
+      const reviewId: Types.ObjectId = req.params.reviewId;
+      const product: IProduct = await new ProductLib().editProductReview(userId, productId, reviewId, req.body);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async deleteProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const productId: string = req.params.id;
+      const reviewId: Types.ObjectId = req.params.reviewId;
+      const product: IProduct = await new ProductLib().deleteReviewRating(userId, productId, reviewId);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async getProductReviewRatingById(req: Request, res: Response): Promise<void> {
+    try {
+      const page: number = req.query.page ? Number(req.query.page) : 1;
+      const limit: number = req.query.limit ? Number(req.query.limit) : 10;
+      const product: IProduct = await new ProductLib().getProductById(req.params.id);
+      const reviewRatings: IReview[] = await new ProductLib().paginationOnArray(product.review_rating.review, page, limit);
+      const dataObj: IReviewRating = {
+        review: reviewRatings,
+        avg_rating: product.review_rating.avg_rating,
+        total_review: product.review_rating.total_review,
+      };
+      const pages: number = Math.ceil(dataObj.total_review / limit);
+      res.locals.data = dataObj;
+      res.locals.pagination = {
+        total: product.review_rating.review.length,
+        limit: limit,
+        page: page,
+        pages: pages === 0 ? 1 : pages,
+      };
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'getProducts');
     }
   }
 }

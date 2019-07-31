@@ -16,6 +16,14 @@ export class ProductLib {
     return productModel.paginate({ ...filters, ...isDelete }, options);
   }
 
+  public async paginationOnArray(
+    array: IReview[],
+    page: number,
+    limit: number,
+  ): Promise<IReview[]> {
+    return array.slice((page - 1) * limit, page * limit);
+  }
+
   public async addProduct(data: IProduct): Promise<IProduct> {
     const productObj: IProduct = new productModel(data);
 
@@ -49,9 +57,9 @@ export class ProductLib {
     }).populate({path: 'brand', model: 'Brand'});
   }
 
-  public async getProductReviewRating(id: ObjectID, productId: string, data: IReview): Promise<IProduct> {
+  public async addProductReview(userId: ObjectID, productId: string, data: IReview): Promise<IProduct> {
     const ratingObj: IReview = {
-      user_id: id,
+      user_id: userId,
       rating: data.rating,
       comment: data.comment,
     };
@@ -60,7 +68,7 @@ export class ProductLib {
       const reviewRating : IReviewRating = {
         review: [
           {
-            user_id: id,
+            user_id: userId,
             rating: data.rating,
             comment: data.comment,
           },
@@ -70,7 +78,7 @@ export class ProductLib {
       };
       product.review_rating = reviewRating;
     }
-    product.review_rating.review.push(ratingObj);
+    product.review_rating.review = await this.checkProductReviewAlreadyExist(product.review_rating.review, ratingObj);
     const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
     product.review_rating.total_review = product.review_rating.review.length;
     product.review_rating.avg_rating = rating / product.review_rating.total_review;
@@ -78,9 +86,68 @@ export class ProductLib {
     return this.findByIdAndUpdate(new ObjectID(productId), product);
   }
 
-  public async calculateProductReviewRating(reviewArray: Object[]): Promise<number> {
+  public async editProductReview(userId: ObjectID, productId: string, reviewId: ObjectID, data: IReview): Promise<IProduct> {
+    const ratingObj: IReview = {
+      user_id: userId,
+      rating: data.rating,
+      comment: data.comment,
+    };
+    const product: IProduct = await this.getProductById(productId);
+    product.review_rating.review = await this.checkProductReviewAlreadyExistById(product.review_rating.review, ratingObj, reviewId);
+    const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
+    product.review_rating.total_review = product.review_rating.review.length;
+    product.review_rating.avg_rating = rating / product.review_rating.total_review;
+
+    return this.findByIdAndUpdate(new ObjectID(productId), product);
+  }
+
+  public async deleteReviewRating(userId: ObjectID, productId: string, reviewId: ObjectID): Promise<IProduct> {
+    const product: IProduct = await this.getProductById(productId);
+    product.review_rating.review.forEach((element: any, index: number) => {
+      if (element.user_id && element.user_id.toString() === userId && element._id.toString() === reviewId) {
+        product.review_rating.review.splice(index, 1);
+      }
+    });
+    const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
+    product.review_rating.total_review = product.review_rating.review.length;
+    product.review_rating.avg_rating = rating / product.review_rating.total_review;
+
+    return this.findByIdAndUpdate(new ObjectID(productId), product);
+  }
+
+  public async checkProductReviewAlreadyExist(reviewArray: IReview[], ratingObj: IReview): Promise<IReview[]> {
+    let isFound: Boolean = false;
+    reviewArray.forEach((element: any, index: number) => {
+      if (element.user_id && element.user_id.toString() === ratingObj.user_id) {
+        isFound = true;
+        // reviewArray.splice(index, 1);
+      }
+    });
+    if (!isFound) {
+      reviewArray.push(ratingObj);
+    }
+
+    return reviewArray;
+  }
+
+  public async checkProductReviewAlreadyExistById(reviewArray: IReview[], ratingObj: IReview, reviewId: ObjectID): Promise<IReview[]> {
+    let isFound: Boolean = false;
+    reviewArray.forEach((element: any, index: number) => {
+      if (element.user_id && element.user_id.toString() === ratingObj.user_id && element._id.toString() === reviewId) {
+        isFound = true;
+        reviewArray.splice(index, 1);
+      }
+    });
+    if (isFound) {
+      reviewArray.push(ratingObj);
+    }
+
+    return reviewArray;
+  }
+
+  public async calculateProductReviewRating(reviewArray: IReview[]): Promise<number> {
     let rating: number = 0;
-    reviewArray.filter(function(review: IReview):void {
+    reviewArray.filter(function(review: IReview): void {
       rating += review.rating;
     });
 

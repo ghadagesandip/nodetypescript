@@ -19,7 +19,7 @@ export interface IProduct extends Document {
 }
 
 export interface IReviewRating {
-  review: Object[];
+  review: IReview[];
   avg_rating: number;
   total_review: number;
 }
