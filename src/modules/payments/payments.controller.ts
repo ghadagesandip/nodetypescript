@@ -1,7 +1,10 @@
 import { Application, Request, Response } from 'express';
 import * as Stripe from 'stripe';
+import { Messages } from '../../constants/messages';
 import { AuthHelper, ResponseHandler } from '../../helpers';
 import { BaseController } from '../BaseController';
+import { ICart } from '../cart/cart.type';
+import { IOrder } from '../payments/order.type';
 import { PaymentsLib } from './payments.lib';
 import { paymentsRule } from './payments.rule';
 /**
@@ -25,6 +28,7 @@ export class PaymentsController extends BaseController {
                      paymentsRule.forAdd,
                      authHelper.validation,
                      this.makePayment);
+    this.router.get('/order/:id', authHelper.guard, this.order);
   }
 
 /**
@@ -43,6 +47,24 @@ export class PaymentsController extends BaseController {
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'makePayment');
+    }
+  }
+
+  public async order(req: Request, res: Response): Promise<void> {
+    try {
+      const paymentLib: PaymentsLib = new PaymentsLib();
+      const order: ICart = await paymentLib.getOrderDetails(req.params.id);
+      if (order) {
+        await paymentLib.placeOrder(order.product_id, order.quantity, order.user_id);
+        const emptyCart: ICart = await paymentLib.emptyCart(req.params.id);
+        res.locals.data = emptyCart;
+      } else {
+        res.locals.data = Messages.INVALID_CART_ID;
+      }
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'order');
     }
   }
 }

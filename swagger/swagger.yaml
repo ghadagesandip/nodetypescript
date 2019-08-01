@@ -690,6 +690,69 @@ paths:
           schema:
             type: string
       security: []  
+  /payments/order/{id}:
+    get:
+      description: ''
+      summary: Place order
+      tags:
+      - payment-order
+      operationId: PaymentsOrderByIdGet
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+      security: []
+  /payments:
+    post:
+      description: ''
+      summary: '{{url}}/payments'
+      tags:
+      - payment-order
+      operationId: PaymentsPost
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/Card'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+      security: []    
 definitions:
   Product:
     description: Model for Product
@@ -808,7 +871,31 @@ definitions:
         x-example: https://url_to_image
       category_id:
         type: string
-        x-example: 5d39a7c97c381d5b46c57d86      
+        x-example: 5d39a7c97c381d5b46c57d86
+  Card:
+    title: Card
+    example:
+      number: 4242424242424242
+      exp_month: 11
+      exp_year: 2021
+      cvc: 183
+    type: object
+    properties:
+      number:
+        type: string
+      exp_month:
+        type: integer
+        format: int32
+      exp_year:
+        type: integer
+        format: int32
+      cvc:
+        type: string
+    required:
+    - number
+    - exp_month
+    - exp_year
+    - cvc            
 securityDefinitions: 
   authorization:
     type: "apiKey"
@@ -828,3 +915,5 @@ tags:
     description: Operations about Site
   - name: Brand
     description: Operations about Brand   
+  - name: payment-order
+    description: Operations about Brand

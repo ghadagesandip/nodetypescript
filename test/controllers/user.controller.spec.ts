@@ -34,15 +34,15 @@ before(async () => {
     });
 });
 
-describe('User module', () => {
-  describe('"usercontroller.getUsers()"', () => {
-    it('should list users', async () => {
-      try {
-        const users: any = await request(server).get('/api/categories/dashboard-products');
+// describe('User module', () => {
+//   describe('"usercontroller.getUsers()"', () => {
+//     it('should list users', async () => {
+//       try {
+//         const users: any = await request(server).get('/api/categories/dashboard-products');
 
-      } catch (err) {
-        expect(err.statusCode).to.be.equal(401);
-      }
-    });
-  });
-});
+//       } catch (err) {
+//         expect(err.statusCode).to.be.equal(401);
+//       }
+//     });
+//   });
+// });
