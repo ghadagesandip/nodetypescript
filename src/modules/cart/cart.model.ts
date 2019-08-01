@@ -17,7 +17,7 @@ export const cartSchema: Schema = new Schema(
     quantity: {
       type: Number,
     },
-    isDeleted:{
+    isDeleted: {
       type: Boolean,
       default: false,
     },
