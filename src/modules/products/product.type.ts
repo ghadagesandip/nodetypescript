@@ -29,3 +29,9 @@ export interface IReview {
   user_id: ObjectID;
   comment: String;
 }
+
+export interface IFilter {
+  brand?: string;
+  price?: object;
+  category_id?: string;
+}

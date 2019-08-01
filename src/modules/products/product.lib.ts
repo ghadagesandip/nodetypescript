@@ -1,7 +1,7 @@
 import { ObjectID } from 'bson';
-import { PaginateResult, Types } from 'mongoose';
+import { PaginateOptions, PaginateResult, Types } from 'mongoose';
 import { productModel } from './product.model';
-import { IProduct, IReview, IReviewRating } from './product.type';
+import { IFilter, IProduct, IReview, IReviewRating } from './product.type';
 
 const isDelete: any = { isDelete: false };
 
@@ -51,10 +51,61 @@ export class ProductLib {
     ]);
   }
 
+  public async getSimilarProduct(id: string): Promise<IProduct[]> {
+    const product: any = await this.getProductById(id);
+    const highlightData: IProduct[] =  await productModel.find({ highlight: { $in: product.highlight }});
+
+    return highlightData.filter((item: IProduct) => item._id.toString() === id ? false : true);
+  }
+
+  // public async getSimilarProduct(reqData: any): Promise<PaginateResult<IProduct>> {
+  //   const product: any = await this.getProductById(reqData.params.id);
+  //   const filters: any = {};
+  //   filters.highlight = { $in: product.highlight };
+  //   const options: PaginateOptions = {
+  //     page: reqData.query.page ? Number(reqData.query.page) : 1,
+  //     limit: reqData.query.limit ? Number(reqData.query.limit) : 10,
+  //     select: 'Products highlights',
+  //     populate: [{ path: 'highlight', model: 'Product' }],
+  //   };
+
+  //   return this.getProduct(
+  //     filters,
+  //     options,
+  //   );
+
+  //   // return productModel.find({_id: { $not: product._id} }, { highlight: { $in: product.highlight }});
+
+  //   // return highlightData.filter((item: IProduct) => item._id.toString() === id ? false : true);
+  // }
+
   public async getProductById(id: string): Promise<IProduct> {
     return productModel.findOne({
       _id: id,
     }).populate({path: 'brand', model: 'Brand'});
+  }
+
+  public async getProductsByCategoryId(reqData: any): Promise<PaginateResult<IProduct>> {
+    const filters: IFilter = {};
+    if (reqData.query && reqData.query.brand) {
+      filters.brand = reqData.query.brand;
+    }
+    if (reqData.query && reqData.query.range) {
+      filters.price = { $gte: reqData.query.range.split('-').map(parseFloat)[0], $lt: reqData.query.range.split('-').map(parseFloat)[1]};
+    }
+    filters.category_id = reqData.params.id;
+    const options: PaginateOptions = {
+      page: reqData.query.page ? Number(reqData.query.page) : 1,
+      limit: reqData.query.limit ? Number(reqData.query.limit) : 10,
+      select: 'images name highlight price discount brand',
+      populate: [{ path: 'category_id', model: 'Category' }, { path: 'brand', model: 'Brand' }],
+    };
+    const user: ProductLib = new ProductLib();
+
+    return user.getProduct(
+      filters,
+      options,
+    );
   }
 
   public async addProductReview(userId: ObjectID, productId: string, data: IReview): Promise<IProduct> {
@@ -82,8 +133,9 @@ export class ProductLib {
     const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
     product.review_rating.total_review = product.review_rating.review.length;
     product.review_rating.avg_rating = rating / product.review_rating.total_review;
+    const condition: object = { _id: productId};
 
-    return this.findByIdAndUpdate(new ObjectID(productId), product);
+    return productModel.findOneAndUpdate(condition, product);
   }
 
   public async editProductReview(userId: ObjectID, productId: string, reviewId: ObjectID, data: IReview): Promise<IProduct> {
@@ -97,8 +149,9 @@ export class ProductLib {
     const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
     product.review_rating.total_review = product.review_rating.review.length;
     product.review_rating.avg_rating = rating / product.review_rating.total_review;
+    const condition: object = { _id: productId};
 
-    return this.findByIdAndUpdate(new ObjectID(productId), product);
+    return productModel.findOneAndUpdate(condition, product);
   }
 
   public async deleteReviewRating(userId: ObjectID, productId: string, reviewId: ObjectID): Promise<IProduct> {
@@ -111,8 +164,9 @@ export class ProductLib {
     const rating: number = await this.calculateProductReviewRating(product.review_rating.review);
     product.review_rating.total_review = product.review_rating.review.length;
     product.review_rating.avg_rating = rating / product.review_rating.total_review;
+    const condition: object = { _id: productId};
 
-    return this.findByIdAndUpdate(new ObjectID(productId), product);
+    return productModel.findOneAndUpdate(condition, product);
   }
 
   public async checkProductReviewAlreadyExist(reviewArray: IReview[], ratingObj: IReview): Promise<IReview[]> {
