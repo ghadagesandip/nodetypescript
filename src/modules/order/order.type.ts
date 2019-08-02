@@ -8,5 +8,6 @@ export interface IOrder extends Document {
   delivery_address: string;
   transaction_id?: string;
   receipt_url?: string;
+  quantity: number;
   order_status: boolean;
 }
