@@ -31,6 +31,8 @@ export interface IReview {
 }
 
 export interface IFilter {
+  _id?: object;
+  highlight?: object;
   brand?: string;
   price?: object;
   category_id?: string;

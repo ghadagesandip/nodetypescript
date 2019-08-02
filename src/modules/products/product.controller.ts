@@ -171,15 +171,18 @@ export class ProductController extends BaseController {
   }
 
   /**
-   * get produdct details by id
+   * get similar produdct details by id
    * @param req
    * @param res
    */
   public async getSimilarProducts(req: Request, res: Response): Promise<void> {
     try {
-      const product: IProduct[] = await new ProductLib().getSimilarProduct(req.params.id);
+      const utils: Utils = new Utils();
+      // find products highlights in productmodel
+      const product: PaginateResult<IProduct> = await new ProductLib().getSimilarProduct(req);
 
-      res.locals.data = product;
+      res.locals.data = product.docs;
+      res.locals.pagination = utils.getPaginateResponse(product);
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;
@@ -187,21 +190,6 @@ export class ProductController extends BaseController {
     }
 
   }
-
-  // public async getSimilarProducts(req: Request, res: Response): Promise<void> {
-  //   try {
-  //     const utils: Utils = new Utils();
-  //     const product: PaginateResult<IProduct> = await new ProductLib().getSimilarProduct(req);
-
-  //     res.locals.data = product.docs;
-  //     res.locals.pagination = utils.getPaginateResponse(product);
-  //     ResponseHandler.JSONSUCCESS(req, res);
-  //   } catch (err) {
-  //     res.locals.data = err;
-  //     ResponseHandler.JSONERROR(req, res, 'getSimilarProducts');
-  //   }
-
-  // }
 
   /**
    * Update Product Review Rating by id

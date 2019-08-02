@@ -51,33 +51,23 @@ export class ProductLib {
     ]);
   }
 
-  public async getSimilarProduct(id: string): Promise<IProduct[]> {
-    const product: any = await this.getProductById(id);
-    const highlightData: IProduct[] =  await productModel.find({ highlight: { $in: product.highlight }});
+  public async getSimilarProduct(reqData: any): Promise<PaginateResult<IProduct>> {
+    const product: any = await this.getProductById(reqData.params.id);
+    const filters: IFilter = {};
+    filters._id = { $ne: reqData.params.id};
+    filters.highlight = { $in: product.highlight };
+    const options: PaginateOptions = {
+      page: reqData.query.page ? Number(reqData.query.page) : 1,
+      limit: reqData.query.limit ? Number(reqData.query.limit) : 10,
+      select: '',
+      populate: [{ path: 'product.highlight', model: 'Product' }],
+    };
 
-    return highlightData.filter((item: IProduct) => item._id.toString() === id ? false : true);
+    return this.getProduct(
+      filters,
+      options,
+    );
   }
-
-  // public async getSimilarProduct(reqData: any): Promise<PaginateResult<IProduct>> {
-  //   const product: any = await this.getProductById(reqData.params.id);
-  //   const filters: any = {};
-  //   filters.highlight = { $in: product.highlight };
-  //   const options: PaginateOptions = {
-  //     page: reqData.query.page ? Number(reqData.query.page) : 1,
-  //     limit: reqData.query.limit ? Number(reqData.query.limit) : 10,
-  //     select: 'Products highlights',
-  //     populate: [{ path: 'highlight', model: 'Product' }],
-  //   };
-
-  //   return this.getProduct(
-  //     filters,
-  //     options,
-  //   );
-
-  //   // return productModel.find({_id: { $not: product._id} }, { highlight: { $in: product.highlight }});
-
-  //   // return highlightData.filter((item: IProduct) => item._id.toString() === id ? false : true);
-  // }
 
   public async getProductById(id: string): Promise<IProduct> {
     return productModel.findOne({
