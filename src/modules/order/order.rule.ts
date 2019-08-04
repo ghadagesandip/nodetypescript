@@ -5,7 +5,6 @@ export const paymentsRule: any = {
     check('email')
       .not()
       .isEmpty()
-      .isEmail()
       .withMessage('Email is required'),
     check('email')
        .isEmail()

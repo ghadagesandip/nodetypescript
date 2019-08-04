@@ -58,7 +58,7 @@ export class CategoryLib {
               $group: { _id: '$brand' , product: { $first: '$$ROOT' }},
             },
             {
-              $limit: 4,
+              $limit: 10,
             },
             {
               $lookup:
