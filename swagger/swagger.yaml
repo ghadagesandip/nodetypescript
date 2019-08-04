@@ -228,6 +228,159 @@ paths:
           schema:
             type: string
       security: []
+  /api/products/addProductReview:
+    post:
+      tags:
+        - Product
+      summary: Add Product Review and Rating
+      description: Add Product Review and Rating
+      operationId: addProductReview
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: the "ProductReview" model
+          required: true
+          schema:
+            $ref: '#/definitions/ProductReview'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/products/{productId}/similarProducts:
+    get:
+      tags:
+        - Product
+      summary: Get Products of similar specification 
+      description: Get Products of similar specification 
+      operationId: getSimilarProducts
+      produces:
+        - application/json
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "_id of product to return"
+        required: true
+        type: "string"
+      - name: "page"
+        in: "query"
+        description: "Page Number"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Record limit"
+        required: false
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/products/getProductReviewById/{productId}:
+    get:
+      tags:
+        - Product
+      summary: Get Product Review and Rating
+      description: Get Product Review and Rating
+      operationId: getProductReviewById
+      produces:
+        - application/json
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "_id of product to return"
+        required: true
+        type: "string"
+      - name: "page"
+        in: "query"
+        description: "Page Number"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Record limit"
+        required: false
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/products/{productId}/editProductReview/{reviewId}:
+    put:
+      tags:
+        - Product
+      summary: Edit Product Review and Rating
+      description: Edit Product Review and Rating
+      operationId: editProductReview
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: "productId"
+          in: "path"
+          description: "_id of product to return"
+          required: true
+          type: "string"
+        - name: "reviewId"
+          in: "path"
+          description: "_id of review to return"
+          required: true
+          type: "string"
+        - name: body
+          in: body
+          description: the "EditProductReview" model
+          required: true
+          schema:
+            $ref: '#/definitions/EditProductReview'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/products/{productId}/deleteProductReview/{reviewId}:
+    delete:
+      tags:
+        - Product
+      summary: Delete Product Review and Rating
+      description: Delete Product Review and Rating
+      operationId: deleteProductReview
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: "productId"
+          in: "path"
+          description: "_id of product to return"
+          required: true
+          type: "string"
+        - name: "reviewId"
+          in: "path"
+          description: "_id of review to return"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
   /api/users/{userId}:
     get:
       tags:
@@ -555,6 +708,11 @@ paths:
         description: "_id of brand to return"
         required: false
         type: "string"
+      - name: "range"
+        in: "query"
+        description: "price range as 500-1000"
+        required: false
+        type: "string"
       responses:
         '200':
           description: OK
@@ -771,6 +929,32 @@ definitions:
       price:
         type: string
         x-example: '8999'
+  ProductReview:
+    description: Model for ProductReview
+    required:
+      - productId
+    properties:
+      productId:
+        type: string
+        x-example: 5d2b6201fc7a944e5f080cc3
+      rating:
+        type: number
+        x-example: 5
+      comment:
+        type: string
+        x-example: Good Product
+  EditProductReview:
+    description: Model for ProductReview
+    required:
+      - rating
+      - comment
+    properties:
+      rating:
+        type: number
+        x-example: 5
+      comment:
+        type: string
+        x-example: Good Product
   User:
     description: Model for User
     required:
