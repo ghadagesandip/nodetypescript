@@ -2,6 +2,11 @@ import { Document, Model, model, PaginateModel, Schema } from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { IUser } from './user.type';
 
+export enum UserRole {
+  admin = 'admin',
+  customer = 'customer',
+}
+
 export const userSchema: Schema = new Schema(
   {
     password: {
@@ -23,6 +28,10 @@ export const userSchema: Schema = new Schema(
     gender: {
       type: String,
       enum: ['Male', 'Female'],
+    },
+    userRole: {
+      type: String,
+      default: UserRole.customer,
     },
     tmp_forgot_pass_code: {
       type: String,

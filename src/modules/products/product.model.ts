@@ -40,6 +40,13 @@ const displaySchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  brightness: String,
+  contrast_ratio: String,
+    analog_tv_reception: String,
+    view_angle: String,
+    panel_type: String,
+    digital_noise_filter: String,
+    aspect_ratio: String,
 });
 
 const memoryStorageSchema: Schema = new Schema({
@@ -54,6 +61,12 @@ const memoryStorageSchema: Schema = new Schema({
   expandable: {
     type: Number,
   },
+  ram_type: String,
+  ram_speed: String,
+  memory_slots: String,
+  memory_layout: String,
+  hdd_speed: String,
+  hdd_type: String,
 });
 
 const cameraSchema: Schema = new Schema({
@@ -100,6 +113,50 @@ const connectivitySchema: Schema = new Schema({
     type: String,
     default: false,
   },
+  usb_3_0_slots: String,
+  usb_2_0_slots: String,
+  sd_card_reader: String,
+  headphone_jack: String,
+  microphone_jack: String,
+});
+
+const smartTvFeaturesSchema: Schema = new Schema({
+supported_apps: String,
+operating_system: String,
+screen_mirroring: String,
+content_providers: String,
+supported_devices_for_casting: String,
+});
+
+const offerSchema: Schema = new Schema({
+  no_cost_EMI: String,
+  special_price: [
+    {
+      type: String,
+    },
+  ],
+  bank_offer: [{
+    type: String,
+  }],
+  partner_offer: [{
+    type: String,
+  }],
+
+});
+
+const reviewRatingSchema: Schema = new Schema({
+    review: [
+      {
+        rating: Number,
+        user_id: {
+          type: 'ObjectId',
+          ref: '',
+        },
+        comment: String,
+      },
+    ],
+    avg_rating: Number,
+    total_review: Number,
 });
 
 export const productSchema: Schema = new Schema({
@@ -115,9 +172,10 @@ export const productSchema: Schema = new Schema({
     unique: true,
   },
   brand: {
-    type: String,
+    type: 'ObjectId',
     required: true,
-  },
+    ref: 'Brand',
+    },
   price: {
     type: Number,
     required: true,
@@ -138,6 +196,14 @@ export const productSchema: Schema = new Schema({
   memory_storage: memoryStorageSchema,
   camera: cameraSchema,
   connectivity_feature: connectivitySchema,
+  smart_tv_feature: smartTvFeaturesSchema,
+  highlight: [
+    {
+      type: String,
+    },
+  ],
+  offer: offerSchema,
+  review_rating: reviewRatingSchema,
   isDelete: {
     type: Boolean,
     default: false,

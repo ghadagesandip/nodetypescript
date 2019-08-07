@@ -10,11 +10,12 @@ dotenv.config({
 });
 
 let server: http.Server;
-// tslint:disable-next-line:mocha-no-side-effect-code
-const app: App = new App();
+let app: App;
 
-before(() => {
-  app
+before(async () => {
+  app = new App();
+
+  await app
     .init()
     .then(() => {
       server = app.httpServer;
@@ -33,17 +34,15 @@ before(() => {
     });
 });
 
-describe('User module', () => {
-  describe('"usercontroller.getUsers()"', () => {
-    it('should should list users', async () => {
-      try {
-        const users: any = await request(app).get('/api/users');
+// describe('User module', () => {
+//   describe('"usercontroller.getUsers()"', () => {
+//     it('should list users', async () => {
+//       try {
+//         const users: any = await request(server).get('/api/categories/dashboard-products');
 
-        logger.info(JSON.stringify({ 'jso data': users }));
-      } catch (err) {
-        logger.log('err: ::', err);
-        expect(err.statusCode).to.be.equal(401); // this is called
-      }
-    });
-  });
-});
+//       } catch (err) {
+//         expect(err.statusCode).to.be.equal(401);
+//       }
+//     });
+//   });
+// });

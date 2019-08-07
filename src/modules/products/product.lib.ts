@@ -45,6 +45,40 @@ export class ProductLib {
   public async getProductById(id: string): Promise<IProduct> {
     return productModel.findOne({
       _id: id,
-    });
+    }).populate({path: 'brand', model: 'Brand'});
   }
+
+  public async getBrandCountByCategory(catId : Types.ObjectId): Promise<any> {
+
+    return productModel.aggregate([
+      { $match: { ...isDelete, category_id : catId } },
+      {
+        $group: {
+          _id: { brand : '$brand' },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: 'brands',
+          localField: '_id.brand',
+          foreignField: '_id',
+          as: 'product_brand',
+        },
+      },
+      {
+        $addFields : {
+          brand_name: { $arrayElemAt: [ '$product_brand.name', 0 ] },
+        },
+      },
+      {
+        $project: {
+          product_count: '$count',
+          brand_name: 1,
+          _id: '$_id.brand',
+        },
+      },
+    ]);
+  }
+
 }

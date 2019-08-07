@@ -19,16 +19,16 @@ export class UserController extends BaseController {
   public init(): void {
     const authHelper: AuthHelper = new AuthHelper();
 
-    this.router.get('/', authHelper.guard, this.getUsers);
-    this.router.get('/:id', authHelper.guard, this.getUserById);
+    this.router.get('/', authHelper.adminGuard, this.getUsers);
+    this.router.get('/:id', authHelper.adminGuard, this.getUserById);
     this.router.put(
       '/:id',
-      authHelper.guard,
+      authHelper.adminGuard,
       userRules.forUpdateUser,
       authHelper.validation,
       this.updateUser,
     );
-    this.router.delete('/:id', this.deleteUser);
+    this.router.delete('/:id', authHelper.adminGuard, this.deleteUser);
   }
 
   public register(app: Application): void {

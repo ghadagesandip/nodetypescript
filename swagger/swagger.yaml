@@ -3,7 +3,7 @@ info:
   title: ShoppingApp
   description: Neosoft Shopping App
   version: 1.0.0
-host: ''
+host: 'localhost:3000'
 schemes:
   - http
 paths:
@@ -45,7 +45,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security:  
+      - authorization: []
   /api/products:
     post:
       tags:
@@ -84,7 +85,8 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security:  
+      - authorization: []
   /api/categories/{categoryId}:
     get:
       tags:
@@ -238,7 +240,7 @@ paths:
       parameters:
       - name: "userId"
         in: "path"
-        description: "_id of category to return"
+        description: "_id of userId to return"
         required: true
         type: "string"
       responses:
@@ -246,7 +248,66 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
+    put:
+      tags:
+        - User
+      summary: Update user by Id
+      description: Update user by Id
+      operationId: updateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "_id of userId to return"
+          required: true
+          type: "string"
+        - name: body
+          in: body
+          description: the "UpdateUser" model
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      description: Delete User
+      operationId: deleteUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "_id of userId to return"
+        required: true
+        type: "string"
+      - name: body
+        in: body
+        description: the "AuthUser" model
+        required: true
+        schema:
+          $ref: '#/definitions/AuthUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
   /api/users:
     get:
       tags:
@@ -261,14 +322,39 @@ paths:
           description: OK
           schema:
             type: string
-      security: []
+      security: 
+      - authorization: []
   /api/auth/login:
     post:
       tags:
-        - User
+        - Auth
       summary: User signin
       description: User signin
       operationId: userSignin
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: the "AuthUser" model
+          required: true
+          schema:
+            $ref: '#/definitions/AuthUser'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/auth/sign-up:
+    post:
+      tags:
+        - Auth
+      summary: User signup
+      description: User signup
+      operationId: userSignup
       consumes:
         - application/json
       produces:
@@ -286,13 +372,13 @@ paths:
           schema:
             type: string
       security: []
-  /api/auth/sign-up:
+  /api/auth/forgot-password:
     post:
       tags:
-        - User
-      summary: User signup
-      description: User signup
-      operationId: userSignup
+        - Auth
+      summary: User ForgotPassword
+      description: User ForgotPassword
+      operationId: userForgotPassword
       consumes:
         - application/json
       produces:
@@ -303,7 +389,7 @@ paths:
           description: the "User" model
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/ForgotPassword'
       responses:
         '200':
           description: OK
@@ -403,6 +489,270 @@ paths:
             type: string
       security: 
       - authorization: []
+  /api/categories/dashboard-products:
+    get:
+      tags:
+        - Site
+      summary: Get Categories Dashboard Products
+      description: Get Categories Dashboard Products
+      operationId: getCategoriesDashboardProducts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/categories/{categoryId}/brand-count:
+    get:
+      tags:
+        - Site
+      summary: Get category brand count
+      description: Get category brand count
+      operationId: getBrandCountByCategoryId
+      produces:
+        - application/json
+      parameters:
+      - name: "categoryId"
+        in: "path"
+        description: "_id of category to return"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/products/byCategoryId/{categoryId}:
+    get:
+      tags:
+        - Site
+      summary: Get products by category
+      description: Get products by category
+      operationId: getProductsByCategoryId
+      produces:
+        - application/json
+      parameters:
+      - name: "categoryId"
+        in: "path"
+        description: "_id of category to return"
+        required: true
+        type: "string"
+      - name: "pageNo"
+        in: "query"
+        description: "Page Number"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Record limit"
+        required: false
+        type: "string"
+      - name: "brandId"
+        in: "query"
+        description: "_id of brand to return"
+        required: false
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []
+  /api/brands:
+    get:
+      tags:
+        - Brand
+      summary: Get Brands
+      description: Get Brands List
+      operationId: listBrands
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Brands'
+      security: []
+    post:
+      tags:
+        - Brand
+      summary: Add brand into the collection
+      description: Add brand into the collection, this API is only authorized to "admin" user role
+      operationId: addBrand
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "the Brand model"
+        required: true       
+        schema:
+          $ref: '#/definitions/Brands'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: 
+      - authorization: []
+  /api/brands/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Get Brand by id
+      description: Get brand details by passing brand id in params
+      operationId: getBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Brand details will return for given brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Brands'
+      security: []
+    put:
+      tags:
+        - Brand
+      summary: Update brand details by brand id
+      description: Update brand details using brand id, this API is only authorized to "admin" user role
+      operationId: updateBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "The brand id to update the fields of particular brand"
+        required: true
+        type: "string"
+      - name: body
+        in: body
+        description: the "Brand" model
+        required: true
+        schema:
+          $ref: '#/definitions/Brands'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security:
+      - authorization: []
+    delete:
+      tags:
+        - Brand
+      summary: Delete brand
+      description: Delete brand by using brand id, this API is only authorized to "admin" user role
+      operationId: deleteBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Delete the brand details using brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security:
+      - authorization: []
+  /api/brands/filter/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Get brand with it's products
+      description: Get brand details using brand id and get all it's products
+      operationId: filterProdByBrand
+      produces:
+        - application/json
+      parameters:
+      - name: "brandId"
+        in: "path"
+        description: "Brand details as well as it's products will return for given brand id"
+        required: true
+        type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+      security: []  
+  /payments/order/{id}:
+    get:
+      description: ''
+      summary: Place order
+      tags:
+      - payment-order
+      operationId: PaymentsOrderByIdGet
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+      security: []
+  /payments:
+    post:
+      description: ''
+      summary: '{{url}}/payments'
+      tags:
+      - payment-order
+      operationId: PaymentsPost
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/Card'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+      security: []    
 definitions:
   Product:
     description: Model for Product
@@ -444,6 +794,43 @@ definitions:
       password:
         type: string
         x-example: jitendra123
+  UpdateUser:
+    description: Model for UpdateUser
+    required:
+      - email
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
+      password:
+        type: string
+        x-example: jitendra123
+      first_name:
+        type: string
+        x-example: Jitendra
+      last_name:
+        type: string
+        x-example: Kumar
+  AuthUser:
+    description: Model for AuthUser
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
+      password:
+        type: string
+        x-example: jitendra123
+  ForgotPassword:
+    description: Model for ForgotPassword
+    required:
+      - email
+    properties:
+      email:
+        type: string
+        x-example: jitendra.kumar@neosofttech.com
   Cart:
     description: Model for Cart
     required:
@@ -467,6 +854,48 @@ definitions:
       name:
         type: string
         x-example: mobile
+  Brands:
+    description: Model for Brands
+    required:
+      - name
+      - category_id
+    properties:
+      description:
+        type: string
+        x-example: Apple is a company...
+      name:
+        type: string
+        x-example: Apple
+      image:
+        type: string
+        x-example: https://url_to_image
+      category_id:
+        type: string
+        x-example: 5d39a7c97c381d5b46c57d86
+  Card:
+    title: Card
+    example:
+      number: 4242424242424242
+      exp_month: 11
+      exp_year: 2021
+      cvc: 183
+    type: object
+    properties:
+      number:
+        type: string
+      exp_month:
+        type: integer
+        format: int32
+      exp_year:
+        type: integer
+        format: int32
+      cvc:
+        type: string
+    required:
+    - number
+    - exp_month
+    - exp_year
+    - cvc            
 securityDefinitions: 
   authorization:
     type: "apiKey"
@@ -476,7 +905,15 @@ security: []
 tags:
   - name: User
     description: Operations about User
+  - name: Auth
+    description: Operations about Auth
   - name: Product
     description: Operations about Product
   - name: Category
     description: Operations about Category
+  - name: Site
+    description: Operations about Site
+  - name: Brand
+    description: Operations about Brand   
+  - name: payment-order
+    description: Operations about Brand
