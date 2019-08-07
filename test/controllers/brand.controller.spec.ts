@@ -1,57 +1,84 @@
-import { assert, expect } from 'chai';
+import { expect, should } from 'chai';
 import * as dotenv from 'dotenv';
 import * as http from 'http';
 import * as request from 'supertest';
 import { App } from './../../App';
 import { logger } from './../../src/logger';
+
 dotenv.config({
-    path: '.env.test',
+  path: '.env.test',
 });
 
-// const server: string = 'http://localhost:3000';
-// const commonHeaders: Object = { 'Authorization': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMWNiMTZlY2NhMmI5Njg1MzZhYTUyYyIsImlhdCI6MTU2NDU1MjQ1OSwiZXhwIjoxNTY0NjM4ODU5fQ.IvaWKD-Db57fQAHAKNW-Udk3Jd6eNP8b40NeNOQJECo` };
+// let server: http.Server;
+// let app: App;
+const server: string = 'http://localhost:3001';
+const commonHeaders: any = {Authorization: ''};
+before(async () => {
+    const body: any = {
+      email: 'abhjit@yopmail.com',
+      password: 'abhijit123',
+    };
+    const users: any = await request(server).post('/api/auth/login').send(body);
+    commonHeaders.Authorization = users.body.data.token;
+});
 
-// describe('Brand module', () => {
-//     describe('"brandcontroller.listBrands()"', () => {
-//       it('should list brands', async () => {
-//         try {
-//           const brands: any = await request(server).get('/api/brands').set(commonHeaders);
-//           brands.should.be.a('object[]');
-//           expect(brands).to.be.equal(Boolean);
-//           expect(brands.message).to.be.equal('Success');
-//         } catch (err) {
-//           expect(err).to.be.equal(err);
-//         }
-//       });
-//     });
-//   });
+describe('User module', () => {
 
-// describe('Brand module', function () {
-//     describe('brandcontroller.listBrands()', async () => {
-//         it('should return object', async (done) => {
-//             http.get('http://127.0.0.1:3000/api/brands', function (response) {
-//                 assert.equal(response.statusCode, 200);
-//                 var body = '';
-//                 response.on('data', function (d) {
-//                     body += d;
-//                 });
-//                 response.on('end', function () {
-//                     assert.equal(body, typeof(Object));
-//                     done();
-//                 });
-//             });
-//         });
-//     });
-// });
+  describe('"BrandController.listBrands()"', () => {
+    it('should list of listBrands', async () => {
+        const brands: any = await request(server).get('/api/brands').set(commonHeaders);
+        expect(brands.body.success, 'success').to.be.equal(true);
+        expect(brands.body.message).to.be.equal('Success');
+        expect(brands.body.data).to.be.a('array');
+        expect(brands.body.data[0]).to.be.a('object');
+        expect(brands.body.data[0]).to.have.property('category_id');
+        expect(brands.body.data[0]).to.have.property('name');
+    });
+  });
 
-// describe('/GET book', () => {
-//     it('it should GET all the books', (done) => {
-//       http.get('http://127.0.0.1:3000/api/brands')
-//           .end((res: any) => {
-//                 res.should.have.status(200);
-//                 res.body.should.be.a('array');
-//                 res.body.length.should.be.eql(0);
-//                 done();
-//           });
-//     });
-// });
+  describe('"BrandController.addBrand()"', () => {
+    const body: Object = {
+        name: 'Bosch2',
+        image: 'https://pbs.twimg.com/profile_images/982153556072394754/pLH2Pw2M_400x400.jpg',
+        category_id: ['5d3992aeaa4de9491eefcc06', '5d2c496974dee60c057faf61'],
+        description: 'New Delhi: Chinese television man.',
+    };
+    it('should add brand in brand collection', async () => {
+        const brand: any = await request(server).post('/api/brands').set(commonHeaders).send(body);
+        try {
+        expect(brand.body.success, 'success').to.be.equal(true);
+        expect(brand.body.message).to.be.equal('Success');
+        expect(brand.body.data).to.be.a('object');
+        expect(brand.body.data).to.have.property('category_id');
+        expect(brand.body.data).to.have.property('name');
+        } catch (error) {
+            throw new Error(brand.body.message);
+        }
+    });
+  });
+
+  describe('"BrandController.updateBrand()"', () => {
+    const id: string = '5d3969f0c6fda536e59e96ed';
+    const body: Object = {
+        category_id: '5d224669ca5bec29abdf23ed',
+        name: 'Honor',
+    };
+    it('should update brand fields', async () => {
+        const brand: any = await request(server).put(`/api/brands/${id}`).set(commonHeaders).send(body);
+        expect(brand.body.success, 'success').to.be.equal(true);
+        expect(brand.body.message).to.be.equal('Success');
+        expect(brand.body.data).to.be.a('object');
+    });
+  });
+
+  describe('"BrandController.deleteBrand()"', () => {
+    const id: string = '5d397f3a06ebef43fcc435ef';
+    it('should delete brand', async () => {
+        const cart: any = await request(server).delete(`/api/brands/${id}`).set(commonHeaders);
+        expect(cart.body.success, 'success').to.be.equal(true);
+        expect(cart.body.message).to.be.equal('Success');
+        expect(cart.body.data).to.be.a('object');
+    });
+  });
+
+});
