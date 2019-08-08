@@ -4,7 +4,7 @@ info:
   title: shopping-app
   description: 'Neosoft Shopping App'
   contact: {}
-host: 
+host: 'localhost:3000'
 basePath: /
 schemes:
 - http
