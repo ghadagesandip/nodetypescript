@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
   version: '1.0'
-  title: shopping-app copy
-  description: 'TODO: Add Description'
+  title: shopping-app
+  description: 'Neosoft Shopping App'
   contact: {}
-host: localhost:3000
+host: https://enigmatic-reef-16960.herokuapp.com
 basePath: /
 schemes:
 - http
