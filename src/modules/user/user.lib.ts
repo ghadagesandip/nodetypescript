@@ -49,7 +49,6 @@ export class UserLib {
   }
 
   public async getUserCart(userId: string): Promise<ICart> {
-
     return cartModel.findOne({user_id: Types.ObjectId(userId), isDeleted: false});
   }
 

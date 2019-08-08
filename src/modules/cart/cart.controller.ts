@@ -33,6 +33,7 @@ export class CartController extends BaseController {
       const utils: Utils = new Utils();
       const filters: any = {};
       filters.user_id = req.body.loggedinUserId;
+      filters.isDeleted = false;
       const options: any = {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
@@ -55,6 +56,7 @@ export class CartController extends BaseController {
     try {
       const filters: any = {};
       filters.user_id = req.body.loggedinUserId;
+      filters.isDeleted = false;
       const cart: CartLib = new CartLib();
       const carts: ICart[] = await cart.getCarts(filters);
       res.locals.data = carts;
@@ -92,6 +94,12 @@ export class CartController extends BaseController {
     body.user_id = req.body.loggedinUserId;
     const id: Types.ObjectId = req.params.id;
     try {
+      const checkCart: ICart = await new CartLib().checkCart(id);
+      if (!checkCart) {
+        throw new Error('Invalid cart id');
+      }
+      body.quantity = String(checkCart.product_id) === String(body.product_id) ?
+                    (body.quantity  + checkCart.quantity) : body.quantity;
       const product: any = await new CartLib().findByIdAndUpdate(id, body);
       if (!product) {
         throw new Error('Invalid product id passed.');

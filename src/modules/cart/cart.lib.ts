@@ -30,6 +30,12 @@ export class CartLib {
     return cartModel.findByIdAndUpdate(id, { $set: data }, { new: true });
   }
 
+  public async checkCart(
+    id: Types.ObjectId,
+  ): Promise<ICart> {
+    return cartModel.findOne({_id: id , isDeleted: false});
+  }
+
   public async deleteById(id: Types.ObjectId): Promise<ICart> {
     return cartModel.findByIdAndRemove(id);
   }
