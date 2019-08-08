@@ -5,15 +5,16 @@ info:
   description: 'Neosoft Shopping App'
   contact: {}
 host: 'localhost:3000'
-basePath: /
+basePath: /api
 schemes:
 - http
+- https
 consumes:
 - application/json
 produces:
 - application/json
 paths:
-  /api/users:
+  /users:
     get:
       description: Get user list api for admin user role only.
       summary: users
@@ -26,12 +27,12 @@ paths:
       parameters:
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -90,7 +91,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/users/{id}:
+  /users/{id}:
     get:
       description: 'Get user details by id only for admin user role.'
       summary: getUserById
@@ -108,12 +109,12 @@ paths:
         description: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -181,12 +182,12 @@ paths:
           $ref: '#/definitions/UpdateuserRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -249,12 +250,12 @@ paths:
         description: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -273,7 +274,7 @@ paths:
               functionName: deleteUser
       security: 
       - authorization: []
-  /api/categories:
+  /categories:
     get:
       description: Get all the categories list.
       summary: categories
@@ -286,7 +287,7 @@ paths:
       parameters:
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -348,12 +349,12 @@ paths:
           $ref: '#/definitions/AddCategoryRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -397,7 +398,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/categories/{id}:
+  /categories/{id}:
     get:
       description: Get single category by using category id
       summary: single category
@@ -415,7 +416,7 @@ paths:
         description: Category Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -481,12 +482,12 @@ paths:
           $ref: '#/definitions/UpdatecategoryRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -547,12 +548,12 @@ paths:
         description: Category id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -596,7 +597,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/brands:
+  /brands:
     get:
       description: Get all brands list.
       summary: brands
@@ -774,12 +775,12 @@ paths:
           $ref: '#/definitions/AddbrandRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -827,7 +828,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/brands/{id}:
+  /brands/{id}:
     delete:
       description: Delete brand by using brand id for admin user role only.
       summary: Delete brand
@@ -845,12 +846,12 @@ paths:
         description: Brand Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -917,7 +918,7 @@ paths:
         description: Brand id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -985,12 +986,12 @@ paths:
           $ref: '#/definitions/UpdatebrandRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1040,7 +1041,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/brands/filter/{id}:
+  /brands/filter/{id}:
     get:
       description: Get products by brand filter with brand id.
       summary: brand filter
@@ -1058,7 +1059,7 @@ paths:
         description: Brand id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1144,7 +1145,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/auth/login:
+  /auth/login:
     post:
       description: Login with email and password.
       summary: login
@@ -1163,7 +1164,7 @@ paths:
           $ref: '#/definitions/loginrequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1210,7 +1211,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/auth/forgot-password:
+  /auth/forgot-password:
     post:
       description: In Forgot password link will send to registered eamil id.
       summary: ForgotPassword
@@ -1229,7 +1230,7 @@ paths:
           $ref: '#/definitions/ForgotPasswordRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1263,7 +1264,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/auth/sign-up:
+  /auth/sign-up:
     post:
       description: Sign up with two user roles- admin & customer, By default role will be customer.
       summary: Sign up
@@ -1282,7 +1283,7 @@ paths:
           $ref: '#/definitions/SignupRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1326,7 +1327,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/products:
+  /products:
     get:
       description: Get products by with and without brand id.
       summary: getProducts
@@ -1344,12 +1345,12 @@ paths:
         description: Brand Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1398,12 +1399,12 @@ paths:
           $ref: '#/definitions/addProductsRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1509,7 +1510,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/products/{id}/details:
+  /products/{id}/details:
     get:
       description: Get product details by product id.
       summary: product-details
@@ -1527,7 +1528,7 @@ paths:
         description: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1635,7 +1636,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/products/{id}:
+  /products/{id}:
     put:
       description: Update product details using id for admin role only.
       summary: Update product
@@ -1659,12 +1660,12 @@ paths:
           $ref: '#/definitions/UpdateproductRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1773,12 +1774,12 @@ paths:
         description: Product id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -1870,7 +1871,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/products/addProductReview:
+  /products/addProductReview:
     post:
       description: Add review to product.
       summary: addProductReview
@@ -1889,12 +1890,12 @@ paths:
           $ref: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2000,7 +2001,7 @@ paths:
               default: 1.1 vegur
       security: 
       - authorization: []
-  /api/products/getProductReviewById/{id}:
+  /products/getProductReviewById/{id}:
     get:
       description: Get product review rating.
       summary: Get Product Review Rating By Id
@@ -2018,12 +2019,12 @@ paths:
         description: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2082,7 +2083,7 @@ paths:
               default: 1.1 vegur
       security: 
       - authorization: []
-  /api/products/{id}/editProductReview/{reviewId}:
+  /products/{id}/editProductReview/{reviewId}:
     put:
       description: Edit/update product review
       summary: editProductReview
@@ -2111,12 +2112,12 @@ paths:
           $ref: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2226,7 +2227,7 @@ paths:
               default: 1.1 vegur
       security: 
       - authorization: []
-  /api/products/{id}/deleteProductReview/{reviewId}:
+  /products/{id}/deleteProductReview/{reviewId}:
     delete:
       description: Delete product review
       summary: deleteProductReview
@@ -2249,12 +2250,12 @@ paths:
         description: Review Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2364,7 +2365,7 @@ paths:
               default: 1.1 vegur
       security: 
       - authorization: []
-  /api/products/{id}/similarProducts:
+  /products/{id}/similarProducts:
     get:
       description: Get similar products
       summary: similarProducts
@@ -2382,12 +2383,12 @@ paths:
         description: ''
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2868,7 +2869,7 @@ paths:
               default: 1.1 vegur
       security: 
       - authorization: []
-  /api/carts:
+  /carts:
     get:
       description: Get logged in user cart details.
       summary: getItems
@@ -2881,12 +2882,12 @@ paths:
       parameters:
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -2958,12 +2959,12 @@ paths:
           $ref: '#/definitions/addtoCartRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3008,7 +3009,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/carts/{id}:
+  /carts/{id}:
     put:
       description: Update cart product quantity if it's already in cart.
       summary: updateItem
@@ -3032,12 +3033,12 @@ paths:
           $ref: '#/definitions/updateItemRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3099,12 +3100,12 @@ paths:
         description: Cart Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3149,7 +3150,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/categories/dashboard-products:
+  /categories/dashboard-products:
     get:
       description: All products list for dashboard.
       summary: dashboard-products
@@ -3162,7 +3163,7 @@ paths:
       parameters:
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3192,7 +3193,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/products/byCategoryId/{id}:
+  /products/byCategoryId/{id}:
     get:
       description: Get product details by category id and brand id.
       summary: byCategoryId
@@ -3227,7 +3228,7 @@ paths:
         description: Category id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3335,7 +3336,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/categories/{id}/brand-count:
+  /categories/{id}/brand-count:
     get:
       description: Get brands list with their products count using category id.
       summary: brand-count
@@ -3353,7 +3354,7 @@ paths:
         description: Category Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3409,7 +3410,7 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /api/order/placeOrder/{id}:
+  /order/placeOrder/{id}:
     get:
       description: Place order for the given cart id.
       summary: Place order
@@ -3427,12 +3428,12 @@ paths:
         description: Cart Id
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3477,7 +3478,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/order/myOrders:
+  /order/myOrders:
     get:
       description: Customers own orders list.
       summary: My orders list(customer)
@@ -3490,12 +3491,12 @@ paths:
       parameters:
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3552,7 +3553,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/order:
+  /order:
     post:
       description: Make payment using card details.
       summary: Make payment
@@ -3571,12 +3572,12 @@ paths:
           $ref: '#/definitions/MakepaymentRequest'
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
@@ -3715,7 +3716,7 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /api/order/allOrders:
+  /order/allOrders:
     get:
       description: >-
         Get status-wise orders list of all users this is for only admin user role.
@@ -3736,12 +3737,12 @@ paths:
         description: status=success,failed,pending or all
       - name: Content-Type
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       - name: Authorization
         in: header
-        required: true
+        required: false
         type: string
         description: ''
       responses:
