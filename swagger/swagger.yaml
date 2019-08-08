@@ -4,7 +4,7 @@ info:
   title: shopping-app
   description: 'Neosoft Shopping App'
   contact: {}
-host: https://enigmatic-reef-16960.herokuapp.com
+host: 
 basePath: /
 schemes:
 - http
