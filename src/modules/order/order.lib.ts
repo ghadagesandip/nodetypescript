@@ -77,7 +77,7 @@ export class OrderLib {
     ]);
   }
 
-  public async getdetails(getCart:any[]) : Promise<any> {
+  public async getdetails(getCart: any[]) : Promise<any> {
     //  getCart.find(function (element, index, array) {
     //   console.log(element.quantity)
     // });

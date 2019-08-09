@@ -64,7 +64,7 @@ export class PaymentsController extends BaseController {
     try {
       const orderLib: OrderLib = new OrderLib();
       const getCart: ICart[] = await orderLib.getCartDetails(req.body.loggedinUserId);
-      console.log(getCart);
+      //console.log(getCart);
      // const cartdetails:any = await orderLib.getdetails(getCart);
       const order: ICart = await orderLib.getOrderDetails(req.params.id);
       if (order) {
@@ -118,6 +118,5 @@ export class PaymentsController extends BaseController {
       ResponseHandler.JSONERROR(req, res, 'myOrders');
     }
   }
-
 
 }
