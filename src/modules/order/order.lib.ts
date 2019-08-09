@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { PaginateResult } from 'mongoose';
+import { PaginateResult, Types } from 'mongoose';
 import * as Stripe from 'stripe';
 import { cartModel } from '../cart/cart.model';
 import { ICart } from '../cart/cart.type';
@@ -36,6 +36,51 @@ export class OrderLib {
 
   public async getOrderDetails(cartId: string): Promise<ICart> {
     return cartModel.findOne({ _id: cartId, isDeleted: false }).populate({ path: 'product_id', model: 'Product' });
+  }
+
+  public async getCartDetails(userId: string): Promise<any> {
+    //return cartModel.find({user_id: Types.ObjectId(userId), isDeleted: false}).populate({ path: 'product_id', model: 'Product' });
+    return cartModel.aggregate([
+      { $match: {$and: [{user_id: Types.ObjectId(userId)}, {isDeleted: false}]} },
+      {
+        $lookup: {
+            from: 'products',
+            localField: 'product_id',
+            foreignField: '_id',
+            as: 'product',
+        },
+    },
+    {
+        $addFields : {
+          prod_price: { $arrayElemAt: [ '$product.price', 0 ] },
+          produ_id: { $arrayElemAt: [ '$product._id', 0 ] },
+          prod_discount: { $arrayElemAt: [ '$product.discount', 0 ] },
+        },
+      },
+      {
+        $group: {
+          _id: { user_id : '$user_id' },
+          prod_dis: {$addToSet: '$prod_discount'},
+          total_price: { $sum: {$multiply: ['$prod_price', '$quantity' ] }},
+          total_qty: {$sum: '$quantity'},
+          prod_id: { $addToSet: '$product_id' },
+        },
+      },
+      {
+        $project: {
+          product_total_qty: '$total_qty',
+          product_total_price: '$total_price',
+          prod_id: 1,
+          prod_dis: 1,
+        },
+      },
+    ]);
+  }
+
+  public async getdetails(getCart:any[]) : Promise<any> {
+    //  getCart.find(function (element, index, array) {
+    //   console.log(element.quantity)
+    // });
   }
 
   public async placeOrder(product: IProduct, quantity: number, userId: string, cartId: string): Promise<IOrder> {

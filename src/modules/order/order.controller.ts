@@ -63,6 +63,9 @@ export class PaymentsController extends BaseController {
   public async order(req: Request, res: Response): Promise<void> {
     try {
       const orderLib: OrderLib = new OrderLib();
+      const getCart: ICart[] = await orderLib.getCartDetails(req.body.loggedinUserId);
+      console.log(getCart);
+     // const cartdetails:any = await orderLib.getdetails(getCart);
       const order: ICart = await orderLib.getOrderDetails(req.params.id);
       if (order) {
         await orderLib.placeOrder(order.product_id, order.quantity, order.user_id, req.params.id);
@@ -115,5 +118,6 @@ export class PaymentsController extends BaseController {
       ResponseHandler.JSONERROR(req, res, 'myOrders');
     }
   }
+
 
 }
