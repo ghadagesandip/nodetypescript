@@ -63,16 +63,14 @@ export class PaymentsController extends BaseController {
   public async order(req: Request, res: Response): Promise<void> {
     try {
       const orderLib: OrderLib = new OrderLib();
-      const getCart: ICart[] = await orderLib.getCartDetails(req.body.loggedinUserId);
-      //console.log(getCart);
-     // const cartdetails:any = await orderLib.getdetails(getCart);
-      const order: ICart = await orderLib.getOrderDetails(req.params.id);
-      if (order) {
-        await orderLib.placeOrder(order.product_id, order.quantity, order.user_id, req.params.id);
-        const emptyCart: ICart = await orderLib.emptyCart(req.params.id);
-        res.locals.data = emptyCart;
+      const cartItems: ICart[] = await orderLib.getCartItems(req.body.loggedinUserId);
+      if (cartItems.length > 0) {
+        const getCartDetails: object[] = await orderLib.getCartDetails(req.body.loggedinUserId);
+        const placedOrder: IOrder = await orderLib.placeOrder(cartItems, getCartDetails, req.body.loggedinUserId);
+        await orderLib.emptyCart(req.body.loggedinUserId);
+        res.locals.data = placedOrder;
       } else {
-        res.locals.data = Messages.INVALID_CART_ID;
+        res.locals.data = Messages.INVALID_CART;
       }
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {

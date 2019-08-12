@@ -48,10 +48,6 @@ export class UserLib {
     return userModel.findOne({ email: email }, '+password');
   }
 
-  public async getUserCart(userId: string): Promise<ICart> {
-    return cartModel.findOne({user_id: Types.ObjectId(userId), isDeleted: false});
-  }
-
   /**
    * updateUser
    * @param userId
@@ -90,8 +86,6 @@ export class UserLib {
           });
           user.password = undefined;
         } else {
-          const userCart : ICart = await this.getUserCart(user._id);
-          user.cart_id = userCart == null ? null : userCart._id;
           token = jwt.sign({ id: user._id, userRole: user.userRole }, process.env.SECRET, {
             expiresIn: '24h',
           });
