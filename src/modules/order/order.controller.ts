@@ -24,7 +24,7 @@ export class PaymentsController extends BaseController {
   public init(): void {
     const authHelper: AuthHelper = new AuthHelper();
 
-    this.router.get('/placeOrder/:id', authHelper.guard, this.order);
+    this.router.get('/placeOrder', authHelper.guard, this.order);
     this.router.get('/myOrders', authHelper.guard, this.myOrders);
     this.router.get('/allOrders', authHelper.adminGuard, this.orderDetails);
     this.router.post(
