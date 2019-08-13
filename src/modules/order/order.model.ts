@@ -13,21 +13,14 @@ export const orderSchema: Schema = new Schema(
         required: true,
         ref: 'User',
       },
-    product_id: {
-        type: Types.ObjectId,
-        required: true,
-        ref: 'Product',
-      },
-    cart_id: {
-        type: Types.ObjectId,
-        required: true,
-        ref: 'Cart',
-      },
-    quantity: {
+    cart_items: [{
+      product_id: {},
+    }],
+    order_total_qty: {
       type: Number,
       required: true,
     },
-    total_amount: {
+    order_total_price: {
       type: Number,
       required: true,
     },

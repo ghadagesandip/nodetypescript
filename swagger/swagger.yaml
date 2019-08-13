@@ -2899,23 +2899,129 @@ paths:
             application/json; charset=utf-8:
               success: true
               data:
-              - isDeleted: false
-                _id: 5d4a800a1f6e13000430d5c9
-                product_id:
-                  images:
-                  - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992150594
-                  - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992145923
-                  - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV5?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992148124
-                  _id: 5d35cc9b6af0ba5cef56eb15
-                  name: Apple MacBook Air Core i5 5th Gen
-                  price: 70990
-                  discount: 21
-                  brand: 5d397a2745bc153fafdcf6c8
-                quantity: 6
-                user_id: 5d3eeb3c2384026edfe7aeff
-                createdAt: 2019-08-07T07:38:50.473Z
-                updatedAt: 2019-08-07T11:25:46.565Z
-                __v: 0
+                carts:
+                - isDeleted: false
+                  _id: 5d4ad4a1c66b51000461bfe8
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 9
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-07T13:39:45.819Z
+                  updatedAt: 2019-08-09T10:21:17.962Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d1b07e0b57e31242f1ef2
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 1
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T07:04:39.504Z
+                  updatedAt: 2019-08-09T07:04:39.504Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d1b0be0b57e31242f1ef3
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 1
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T07:04:43.144Z
+                  updatedAt: 2019-08-09T07:04:43.144Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d1b14e0b57e31242f1ef4
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 2
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T07:04:53Z
+                  updatedAt: 2019-08-09T07:04:53Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d3ef578c1014e71c5746f
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 2
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T09:37:57.96Z
+                  updatedAt: 2019-08-09T09:37:57.96Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d429482d1225010990249
+                  product_id:
+                    images:
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+                    - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+                    _id: 5d35cdad6af0ba5cef56eb1b
+                    name: Dell G3 15 3000 Series Core i5 8th Gen
+                    price: 62990
+                    discount: 21
+                    brand: 5d39a68a7c381d5b46c57d84
+                  quantity: 2
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T09:53:24.797Z
+                  updatedAt: 2019-08-09T09:53:24.797Z
+                  __v: 0
+                - isDeleted: false
+                  _id: 5d4d49483d142e5153a374eb
+                  product_id:
+                    images:
+                    - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafe48ru3s66sjd.jpeg?q=70
+                    - https://rukminim1.flixcart.com/image/128/128/jvgzl3k0/mobile/z/x/h/mi-redmi-note-7-pro-mzb7464in-original-imafgdhwn8jfxejv.jpeg?q=70
+                    - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafghukh85tt6yh.jpeg?q=70
+                    _id: 5d2b2942c1a9972bdefcd2a1
+                    name: Redmi Note 7S (Sapphire Blue, 32 GB)  (3 GB RAM)
+                    price: 10999
+                    discount: 5
+                    brand: 5d3994adaa4de9491eefcc0d
+                  quantity: 4
+                  user_id: 5d4baa6797544f7284637ee9
+                  createdAt: 2019-08-09T10:22:00.561Z
+                  updatedAt: 2019-08-09T10:22:04.057Z
+                  __v: 0
+                totalItems:
+                - _id: 5d4baa6797544f7284637ee9
+                  totalQuantity: 21
               message: Success
           headers:
             X-Powered-By:
@@ -2929,13 +3035,13 @@ paths:
               default: nosniff
             Content-Length:
               type: string
-              default: 896
+              default: 6879
             ETag:
               type: string
-              default: W/"380-V8mE6CWA78fnWxKK5azudmWz1Lc"
+              default: W/"1adf-KqxsHtPqM+F72VdZsIq8NaJkNRA"
             Date:
               type: string
-              default: Thu, 08 Aug 2019 04:57:32 GMT
+              default: Fri, 09 Aug 2019 10:23:04 GMT
             Connection:
               type: string
               default: keep-alive
@@ -3009,95 +3115,16 @@ paths:
               default: keep-alive
       security: 
       - authorization: []
-  /carts/{id}:
-    put:
-      description: Update cart product quantity if it's already in cart.
-      summary: updateItem
-      tags:
-      - cart
-      operationId: CartsByIdPut
-      deprecated: false
-      produces:
-      - application/json; charset=utf-8
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-        description: Cart id
-      - name: Body
-        in: body
-        required: true
-        description: ''
-        schema:
-          $ref: '#/definitions/updateItemRequest'
-      - name: Content-Type
-        in: header
-        required: false
-        type: string
-        description: ''
-      - name: Authorization
-        in: header
-        required: false
-        type: string
-        description: ''
-      responses:
-        200:
-          description: ''
-          schema:
-            $ref: '#/definitions/updateItem'
-          examples:
-            application/json; charset=utf-8:
-              success: true
-              data:
-                isDeleted: false
-                _id: 5d4a800a1f6e13000430d5c9
-                product_id: 5d35cc9b6af0ba5cef56eb15
-                quantity: 8
-                user_id: 5d3eeb3c2384026edfe7aeff
-                createdAt: 2019-08-07T07:38:50.473Z
-                updatedAt: 2019-08-08T04:58:36.245Z
-                __v: 0
-              message: Success
-          headers:
-            X-Powered-By:
-              type: string
-              default: Express
-            Access-Control-Allow-Origin:
-              type: string
-              default: '*'
-            X-Content-Type-Options:
-              type: string
-              default: nosniff
-            Content-Length:
-              type: string
-              default: 272
-            ETag:
-              type: string
-              default: W/"110-GtcDlU2npDY2npmdRxez0b+K5DA"
-            Date:
-              type: string
-              default: Thu, 08 Aug 2019 04:58:36 GMT
-            Connection:
-              type: string
-              default: keep-alive
-      security: 
-      - authorization: []
     delete:
-      description: Remove cart by using cart id.
+      description: Remove/Empty cart of logged in user.
       summary: removeItem
       tags:
       - cart
-      operationId: CartsByIdDelete
+      operationId: CartsDelete
       deprecated: false
       produces:
       - application/json; charset=utf-8
       parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-        description: Cart Id
       - name: Content-Type
         in: header
         required: false
@@ -3117,14 +3144,19 @@ paths:
             application/json; charset=utf-8:
               success: true
               data:
-                isDeleted: false
-                _id: 5d4babe297544f7284637f3d
-                product_id: 5d2b2790c1a9972bdefcd29b
-                quantity: 1
-                user_id: 5d3eeb3c2384026edfe7aeff
-                createdAt: 2019-08-08T04:58:10.131Z
-                updatedAt: 2019-08-08T04:58:10.131Z
-                __v: 0
+                n: 7
+                opTime:
+                  ts: 6723114137531973639
+                  t: 7
+                electionId: 7fffffff0000000000000007
+                ok: 1
+                operationTime: 6723114137531973639
+                $clusterTime:
+                  clusterTime: 6723114137531973639
+                  signature:
+                    hash: WuvnamhFAi6mTucsEOYoHnr7z8o=
+                    keyId: 6701605907681247233
+                deletedCount: 7
               message: Success
           headers:
             X-Powered-By:
@@ -3138,16 +3170,16 @@ paths:
               default: nosniff
             Content-Length:
               type: string
-              default: 272
+              default: 332
             ETag:
               type: string
-              default: W/"110-wpJE4chIHcGBxCoP42KcvGf4Guc"
+              default: W/"14c-ocpsDLeOkgmNWzBeL3Kk5iuPbrs"
             Date:
               type: string
-              default: Thu, 08 Aug 2019 04:59:18 GMT
+              default: Fri, 09 Aug 2019 10:36:32 GMT
             Connection:
               type: string
-              default: keep-alive
+              default: keep-alive     
       security: 
       - authorization: []
   /categories/dashboard-products:
@@ -3410,22 +3442,17 @@ paths:
             Connection:
               type: string
               default: keep-alive
-  /order/placeOrder/{id}:
+  /order/placeOrder:
     get:
-      description: Place order for the given cart id.
+      description: Place order for the logged in user.
       summary: Place order
       tags:
       - order
-      operationId: OrderPlaceOrderByIdGet
+      operationId: OrderPlaceOrderGet
       deprecated: false
       produces:
       - application/json; charset=utf-8
       parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-        description: Cart Id
       - name: Content-Type
         in: header
         required: false
@@ -3445,13 +3472,23 @@ paths:
             application/json; charset=utf-8:
               success: true
               data:
-                isDeleted: false
-                _id: 5d4babd197544f7284637f3c
-                product_id: 5d2b2790c1a9972bdefcd29b
-                quantity: 1
-                user_id: 5d3eeb3c2384026edfe7aeff
-                createdAt: 2019-08-08T04:57:53.11Z
-                updatedAt: 2019-08-08T04:57:53.11Z
+                order_status: pending
+                _id: 5d52a13c5420a4679eb13f93
+                cart_items:
+                - _id: 5d52a0e82a93e6672140ec89
+                  product_id:
+                    _id: 5d2b2b19c1a9972bdefcd2b7
+                    name: Redmi Note 6 Pro (Black, 64 GB)  (4 GB RAM)
+                    price: 15999
+                    discount: 25
+                    brand:
+                      _id: 5d3994adaa4de9491eefcc0d
+                      name: Mi
+                user_id: 5d4baa6797544f7284637ee9
+                order_total_qty: 4
+                order_total_price: 15999
+                createdAt: 2019-08-13T11:38:36.845Z
+                updatedAt: 2019-08-13T11:38:36.845Z
                 __v: 0
               message: Success
           headers:
@@ -3466,13 +3503,13 @@ paths:
               default: nosniff
             Content-Length:
               type: string
-              default: 272
+              default: 506
             ETag:
               type: string
-              default: W/"110-UNKvxhu0pUhZIwkvCvLEKe5U+A0"
+              default: W/"1fa-QVCfM3mSrCfuLSNHuxeaaPx94jk"
             Date:
               type: string
-              default: Thu, 08 Aug 2019 05:01:11 GMT
+              default: Tue, 13 Aug 2019 11:38:36 GMT
             Connection:
               type: string
               default: keep-alive
@@ -6943,32 +6980,136 @@ definitions:
     example:
       success: true
       data:
-      - isDeleted: false
-        _id: 5d4a800a1f6e13000430d5c9
-        product_id:
-          images:
-          - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992150594
-          - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992145923
-          - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV5?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992148124
-          _id: 5d35cc9b6af0ba5cef56eb15
-          name: Apple MacBook Air Core i5 5th Gen
-          price: 70990
-          discount: 21
-          brand: 5d397a2745bc153fafdcf6c8
-        quantity: 6
-        user_id: 5d3eeb3c2384026edfe7aeff
-        createdAt: 2019-08-07T07:38:50.473Z
-        updatedAt: 2019-08-07T11:25:46.565Z
-        __v: 0
+        carts:
+        - isDeleted: false
+          _id: 5d4ad4a1c66b51000461bfe8
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 9
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-07T13:39:45.819Z
+          updatedAt: 2019-08-09T10:21:17.962Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d1b07e0b57e31242f1ef2
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 1
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T07:04:39.504Z
+          updatedAt: 2019-08-09T07:04:39.504Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d1b0be0b57e31242f1ef3
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 1
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T07:04:43.144Z
+          updatedAt: 2019-08-09T07:04:43.144Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d1b14e0b57e31242f1ef4
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 2
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T07:04:53Z
+          updatedAt: 2019-08-09T07:04:53Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d3ef578c1014e71c5746f
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 2
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T09:37:57.96Z
+          updatedAt: 2019-08-09T09:37:57.96Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d429482d1225010990249
+          product_id:
+            images:
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+            - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+            _id: 5d35cdad6af0ba5cef56eb1b
+            name: Dell G3 15 3000 Series Core i5 8th Gen
+            price: 62990
+            discount: 21
+            brand: 5d39a68a7c381d5b46c57d84
+          quantity: 2
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T09:53:24.797Z
+          updatedAt: 2019-08-09T09:53:24.797Z
+          __v: 0
+        - isDeleted: false
+          _id: 5d4d49483d142e5153a374eb
+          product_id:
+            images:
+            - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafe48ru3s66sjd.jpeg?q=70
+            - https://rukminim1.flixcart.com/image/128/128/jvgzl3k0/mobile/z/x/h/mi-redmi-note-7-pro-mzb7464in-original-imafgdhwn8jfxejv.jpeg?q=70
+            - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafghukh85tt6yh.jpeg?q=70
+            _id: 5d2b2942c1a9972bdefcd2a1
+            name: Redmi Note 7S (Sapphire Blue, 32 GB)  (3 GB RAM)
+            price: 10999
+            discount: 5
+            brand: 5d3994adaa4de9491eefcc0d
+          quantity: 4
+          user_id: 5d4baa6797544f7284637ee9
+          createdAt: 2019-08-09T10:22:00.561Z
+          updatedAt: 2019-08-09T10:22:04.057Z
+          __v: 0
+        totalItems:
+        - _id: 5d4baa6797544f7284637ee9
+          totalQuantity: 21
       message: Success
     type: object
     properties:
       success:
         type: boolean
       data:
-        type: array
-        items:
-          $ref: '#/definitions/Data20'
+        $ref: '#/definitions/Data20'
       message:
         type: string
     required:
@@ -6978,52 +7119,142 @@ definitions:
   Data20:
     title: Data20
     example:
-      isDeleted: false
-      _id: 5d4a800a1f6e13000430d5c9
-      product_id:
-        images:
-        - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992150594
-        - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992145923
-        - https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-2017-mba-13-gallery_AV5?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1497992148124
-        _id: 5d35cc9b6af0ba5cef56eb15
-        name: Apple MacBook Air Core i5 5th Gen
-        price: 70990
-        discount: 21
-        brand: 5d397a2745bc153fafdcf6c8
-      quantity: 6
-      user_id: 5d3eeb3c2384026edfe7aeff
-      createdAt: 2019-08-07T07:38:50.473Z
-      updatedAt: 2019-08-07T11:25:46.565Z
-      __v: 0
+      carts:
+      - isDeleted: false
+        _id: 5d4ad4a1c66b51000461bfe8
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 9
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-07T13:39:45.819Z
+        updatedAt: 2019-08-09T10:21:17.962Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d1b07e0b57e31242f1ef2
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 1
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T07:04:39.504Z
+        updatedAt: 2019-08-09T07:04:39.504Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d1b0be0b57e31242f1ef3
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 1
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T07:04:43.144Z
+        updatedAt: 2019-08-09T07:04:43.144Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d1b14e0b57e31242f1ef4
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 2
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T07:04:53Z
+        updatedAt: 2019-08-09T07:04:53Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d3ef578c1014e71c5746f
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 2
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T09:37:57.96Z
+        updatedAt: 2019-08-09T09:37:57.96Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d429482d1225010990249
+        product_id:
+          images:
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-1.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-3.jpg?fmt=jpg
+          - https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/notebooks/g_series/15_3579_non_touch/pdp/laptop-g-series-15-3579-nontouch-notebook-pdp-4.jpg?fmt=jpg
+          _id: 5d35cdad6af0ba5cef56eb1b
+          name: Dell G3 15 3000 Series Core i5 8th Gen
+          price: 62990
+          discount: 21
+          brand: 5d39a68a7c381d5b46c57d84
+        quantity: 2
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T09:53:24.797Z
+        updatedAt: 2019-08-09T09:53:24.797Z
+        __v: 0
+      - isDeleted: false
+        _id: 5d4d49483d142e5153a374eb
+        product_id:
+          images:
+          - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafe48ru3s66sjd.jpeg?q=70
+          - https://rukminim1.flixcart.com/image/128/128/jvgzl3k0/mobile/z/x/h/mi-redmi-note-7-pro-mzb7464in-original-imafgdhwn8jfxejv.jpeg?q=70
+          - https://rukminim1.flixcart.com/image/128/128/jw9ke4w0/mobile-refurbished/n/t/g/redmi-note-7s-64-d-m1901f71-mi-4-original-imafghukh85tt6yh.jpeg?q=70
+          _id: 5d2b2942c1a9972bdefcd2a1
+          name: Redmi Note 7S (Sapphire Blue, 32 GB)  (3 GB RAM)
+          price: 10999
+          discount: 5
+          brand: 5d3994adaa4de9491eefcc0d
+        quantity: 4
+        user_id: 5d4baa6797544f7284637ee9
+        createdAt: 2019-08-09T10:22:00.561Z
+        updatedAt: 2019-08-09T10:22:04.057Z
+        __v: 0
+      totalItems:
+      - _id: 5d4baa6797544f7284637ee9
+        totalQuantity: 21
     type: object
     properties:
-      isDeleted:
-        type: boolean
-      _id:
-        type: string
-      product_id:
-        $ref: '#/definitions/ProductId'
-      quantity:
-        type: integer
-        format: int32
-      user_id:
-        type: string
-      createdAt:
-        type: string
-      updatedAt:
-        type: string
-      __v:
-        type: integer
-        format: int32
+      carts:
+        type: array
+        items:
+          $ref: '#/definitions/Cart'
+      totalItems:
+        type: array
+        items:
+          $ref: '#/definitions/TotalItem'
     required:
-    - isDeleted
-    - _id
-    - product_id
-    - quantity
-    - user_id
-    - createdAt
-    - updatedAt
-    - __v
+    - carts
+    - totalItems
   ProductId:
     title: ProductId
     example:
@@ -7142,73 +7373,80 @@ definitions:
     - createdAt
     - updatedAt
     - __v
-  updateItemRequest:
-    title: updateItemRequest
-    example:
-      product_id: 5d35cc9b6af0ba5cef56eb15
-      quantity: 2
-    type: object
-    properties:
-      product_id:
-        type: string
-      quantity:
-        type: integer
-        format: int32
-    required:
-    - product_id
-    - quantity
-  updateItem:
-    title: updateItem
-    example:
-      success: true
-      data:
-        isDeleted: false
-        _id: 5d4a800a1f6e13000430d5c9
-        product_id: 5d35cc9b6af0ba5cef56eb15
-        quantity: 8
-        user_id: 5d3eeb3c2384026edfe7aeff
-        createdAt: 2019-08-07T07:38:50.473Z
-        updatedAt: 2019-08-08T04:58:36.245Z
-        __v: 0
-      message: Success
-    type: object
-    properties:
-      success:
-        type: boolean
-      data:
-        $ref: '#/definitions/Data21'
-      message:
-        type: string
-    required:
-    - success
-    - data
-    - message
   removeItem:
     title: removeItem
     example:
       success: true
       data:
-        isDeleted: false
-        _id: 5d4babe297544f7284637f3d
-        product_id: 5d2b2790c1a9972bdefcd29b
-        quantity: 1
-        user_id: 5d3eeb3c2384026edfe7aeff
-        createdAt: 2019-08-08T04:58:10.131Z
-        updatedAt: 2019-08-08T04:58:10.131Z
-        __v: 0
+        n: 7
+        opTime:
+          ts: 6723114137531973639
+          t: 7
+        electionId: 7fffffff0000000000000007
+        ok: 1
+        operationTime: 6723114137531973639
+        $clusterTime:
+          clusterTime: 6723114137531973639
+          signature:
+            hash: WuvnamhFAi6mTucsEOYoHnr7z8o=
+            keyId: 6701605907681247233
+        deletedCount: 7
       message: Success
     type: object
     properties:
       success:
         type: boolean
       data:
-        $ref: '#/definitions/Data21'
+        $ref: '#/definitions/Data22'
       message:
         type: string
     required:
     - success
     - data
     - message
+  Data22:
+    title: Data22
+    example:
+      n: 7
+      opTime:
+        ts: 6723114137531973639
+        t: 7
+      electionId: 7fffffff0000000000000007
+      ok: 1
+      operationTime: 6723114137531973639
+      $clusterTime:
+        clusterTime: 6723114137531973639
+        signature:
+          hash: WuvnamhFAi6mTucsEOYoHnr7z8o=
+          keyId: 6701605907681247233
+      deletedCount: 7
+    type: object
+    properties:
+      n:
+        type: integer
+        format: int32
+      opTime:
+        $ref: '#/definitions/OpTime'
+      electionId:
+        type: string
+      ok:
+        type: integer
+        format: int32
+      operationTime:
+        type: string
+      $clusterTime:
+        $ref: '#/definitions/ClusterTime'
+      deletedCount:
+        type: integer
+        format: int32
+    required:
+    - n
+    - opTime
+    - electionId
+    - ok
+    - operationTime
+    - $clusterTime
+    - deletedCount
   dashboard-products:
     title: dashboard-products
     type: object
@@ -7595,13 +7833,23 @@ definitions:
     example:
       success: true
       data:
-        isDeleted: false
-        _id: 5d4babd197544f7284637f3c
-        product_id: 5d2b2790c1a9972bdefcd29b
-        quantity: 1
-        user_id: 5d3eeb3c2384026edfe7aeff
-        createdAt: 2019-08-08T04:57:53.11Z
-        updatedAt: 2019-08-08T04:57:53.11Z
+        order_status: pending
+        _id: 5d52a13c5420a4679eb13f93
+        cart_items:
+        - _id: 5d52a0e82a93e6672140ec89
+          product_id:
+            _id: 5d2b2b19c1a9972bdefcd2b7
+            name: Redmi Note 6 Pro (Black, 64 GB)  (4 GB RAM)
+            price: 15999
+            discount: 25
+            brand:
+              _id: 5d3994adaa4de9491eefcc0d
+              name: Mi
+        user_id: 5d4baa6797544f7284637ee9
+        order_total_qty: 4
+        order_total_price: 15999
+        createdAt: 2019-08-13T11:38:36.845Z
+        updatedAt: 2019-08-13T11:38:36.845Z
         __v: 0
       message: Success
     type: object
@@ -7609,13 +7857,69 @@ definitions:
       success:
         type: boolean
       data:
-        $ref: '#/definitions/Data21'
+        $ref: '#/definitions/Data27'
       message:
         type: string
     required:
     - success
     - data
     - message
+  Data27:
+    title: Data27
+    example:
+      order_status: pending
+      _id: 5d52a13c5420a4679eb13f93
+      cart_items:
+      - _id: 5d52a0e82a93e6672140ec89
+        product_id:
+          _id: 5d2b2b19c1a9972bdefcd2b7
+          name: Redmi Note 6 Pro (Black, 64 GB)  (4 GB RAM)
+          price: 15999
+          discount: 25
+          brand:
+            _id: 5d3994adaa4de9491eefcc0d
+            name: Mi
+      user_id: 5d4baa6797544f7284637ee9
+      order_total_qty: 4
+      order_total_price: 15999
+      createdAt: 2019-08-13T11:38:36.845Z
+      updatedAt: 2019-08-13T11:38:36.845Z
+      __v: 0
+    type: object
+    properties:
+      order_status:
+        type: string
+      _id:
+        type: string
+      cart_items:
+        type: array
+        items:
+          $ref: '#/definitions/CartItem'
+      user_id:
+        type: string
+      order_total_qty:
+        type: integer
+        format: int32
+      order_total_price:
+        type: integer
+        format: int32
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      __v:
+        type: integer
+        format: int32
+    required:
+    - order_status
+    - _id
+    - cart_items
+    - user_id
+    - order_total_qty
+    - order_total_price
+    - createdAt
+    - updatedAt
+    - __v
   Myorderslist(customer):
     title: Myorderslist(customer)
     example:

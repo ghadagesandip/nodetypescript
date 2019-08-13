@@ -218,13 +218,13 @@ export class ProductLib {
       },
       {
         $addFields : {
-          brand_name: { $arrayElemAt: [ '$product_brand.name', 0 ] },
+          name: { $arrayElemAt: [ '$product_brand.name', 0 ] },
         },
       },
       {
         $project: {
           product_count: '$count',
-          brand_name: 1,
+          name: 1,
           _id: '$_id.brand',
         },
       },
