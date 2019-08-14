@@ -15,6 +15,7 @@ export const orderSchema: Schema = new Schema(
       },
     cart_items: [{
       product_id: {},
+      quantity: Number,
     }],
     order_total_qty: {
       type: Number,

@@ -3484,6 +3484,7 @@ paths:
                     brand:
                       _id: 5d3994adaa4de9491eefcc0d
                       name: Mi
+                  qunatity: 4    
                 user_id: 5d4baa6797544f7284637ee9
                 order_total_qty: 4
                 order_total_price: 15999
