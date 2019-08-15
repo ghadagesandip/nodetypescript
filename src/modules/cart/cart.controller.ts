@@ -24,8 +24,7 @@ export class CartController extends BaseController {
     this.router.post('/', this.addProductIntoCart);
     this.router.get('/pagination', this.getPaginatedCarts);
     this.router.get('/', this.getCarts);
-    this.router.put('/:id', this.updateCart);
-    this.router.delete('/:id', this.deleteCartItem);
+    this.router.delete('/', this.deleteCartItem);
   }
 
   public async getPaginatedCarts(req: Request, res: Response): Promise<void> {
@@ -33,6 +32,7 @@ export class CartController extends BaseController {
       const utils: Utils = new Utils();
       const filters: any = {};
       filters.user_id = req.body.loggedinUserId;
+      filters.isDeleted = false;
       const options: any = {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.limit ? Number(req.query.limit) : 10,
@@ -55,9 +55,15 @@ export class CartController extends BaseController {
     try {
       const filters: any = {};
       filters.user_id = req.body.loggedinUserId;
+      filters.isDeleted = false;
       const cart: CartLib = new CartLib();
       const carts: ICart[] = await cart.getCarts(filters);
-      res.locals.data = carts;
+      const totalItems: any = await cart.getCartsItemTotal(filters);
+      const resObj: object = {
+        carts: carts,
+        totalItems: totalItems,
+      };
+      res.locals.data = resObj;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;
@@ -74,33 +80,17 @@ export class CartController extends BaseController {
     try {
       const cartLib: CartLib = new CartLib();
       req.body.user_id = req.body.loggedinUserId;
-      res.locals.data = await cartLib.add(req.body);
+      const checkCart: ICart = await new CartLib().checkProdInCart(req.body);
+      if (checkCart) {
+        const product: any = await new CartLib().updateIfExists(checkCart, req.body);
+        res.locals.data = product;
+      } else {
+        res.locals.data = await cartLib.add(req.body);
+      }
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'addProductIntoCart');
-    }
-  }
-
-  /**
-   * Update Cart by id
-   * @param req
-   * @param res
-   */
-  public async updateCart(req: Request, res: Response): Promise<void> {
-    const body: ICart = req.body;
-    body.user_id = req.body.loggedinUserId;
-    const id: Types.ObjectId = req.params.id;
-    try {
-      const product: any = await new CartLib().findByIdAndUpdate(id, body);
-      if (!product) {
-        throw new Error('Invalid product id passed.');
-      }
-      res.locals.data = product;
-      ResponseHandler.JSONSUCCESS(req, res);
-    } catch (err) {
-      res.locals.data = err;
-      ResponseHandler.JSONERROR(req, res, 'updateCart');
     }
   }
 
@@ -110,9 +100,9 @@ export class CartController extends BaseController {
    * @param res
    */
   public async deleteCartItem(req: Request, res: Response): Promise<void> {
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = req.body.loggedinUserId;
     try {
-      const deletedProduct: any = await new CartLib().deleteById(id);
+      const deletedProduct: object = await new CartLib().deleteCustomerCart(id);
       if (!deletedProduct) {
         throw new Error('Invalid product id passed.');
       }

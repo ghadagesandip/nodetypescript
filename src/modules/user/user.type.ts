@@ -8,6 +8,7 @@ export interface IUser extends Document {
   created_date?: Date;
   token?: string;
   userRole: string;
+  cart_id?: string;
 }
 
 export interface IUserRequest {

@@ -1,10 +1,10 @@
 import { Application, Request, Response } from 'express';
-import { PaginateResult, Types } from 'mongoose';
+import { PaginateOptions, PaginateResult, Types } from 'mongoose';
 import { BaseController } from '../BaseController';
 import { AuthHelper, ResponseHandler, Utils } from './../../helpers';
 import { CategoryLib } from './../category/category.lib';
 import { ProductLib } from './product.lib';
-import { IProduct } from './product.type';
+import { IProduct, IReview, IReviewRating } from './product.type';
 
 /**
  * ProductController
@@ -28,6 +28,14 @@ export class ProductController extends BaseController {
     this.router.get('/',  authHelper.guard, this.getProducts);
     this.router.put('/:id', authHelper.adminGuard, this.updateProduct);
     this.router.delete('/:id', authHelper.adminGuard, this.deleteProduct);
+    this.router.get('/', authHelper.guard, this.getProducts);
+    this.router.put('/:id', authHelper.guard, this.updateProduct);
+    this.router.delete('/:id', authHelper.guard, this.deleteProduct);
+    this.router.get('/:id/similarProducts', authHelper.guard, this.getSimilarProducts);
+    this.router.get('/getProductReviewById/:id', this.getProductReviewRatingById);
+    this.router.post('/addProductReview', authHelper.guard, this.addProductReviewRating);
+    this.router.put('/:id/editProductReview/:reviewId', authHelper.guard, this.editProductReviewRating);
+    this.router.delete('/:id/deleteProductReview/:reviewId', authHelper.guard, this.deleteProductReviewRating);
     this.router.post(
       '/',
       authHelper.adminGuard,
@@ -137,22 +145,8 @@ export class ProductController extends BaseController {
   public async getProductsByCategoryId(req: Request, res: Response): Promise<void> {
     try {
       const utils: Utils = new Utils();
-      const filters: any = {};
-      if (req.query && req.query.brand && req.query.brand !== 'undefined') {
-        filters.brand = req.query.brand;
-      }
-      filters.category_id = req.params.id;
-      const options: any = {
-        page: req.query.page ? Number(req.query.page) : 1,
-        limit: req.query.limit ? Number(req.query.limit) : 10,
-        select: 'images name highlight price discount brand',
-        populate: [{path: 'category_id', model: 'Category'}, { path: 'brand', model: 'Brand'}],
-      };
       const user: ProductLib = new ProductLib();
-      const users: PaginateResult<IProduct> = await user.getProduct(
-        filters,
-        options,
-      );
+      const users: PaginateResult<IProduct> = await user.getProductsByCategoryId(req);
       res.locals.data = users.docs;
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);
@@ -177,5 +171,97 @@ export class ProductController extends BaseController {
       ResponseHandler.JSONERROR(req, res, 'updateProduct');
     }
 
+  }
+
+  /**
+   * get similar produdct details by id
+   * @param req
+   * @param res
+   */
+  public async getSimilarProducts(req: Request, res: Response): Promise<void> {
+    try {
+      const utils: Utils = new Utils();
+      // find products highlights in productmodel
+      const product: PaginateResult<IProduct> = await new ProductLib().getSimilarProduct(req);
+
+      res.locals.data = product.docs;
+      res.locals.pagination = utils.getPaginateResponse(product);
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'getSimilarProducts');
+    }
+
+  }
+
+  /**
+   * Update Product Review Rating by id
+   * @param req
+   * @param res
+   */
+  public async addProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const product: IProduct = await new ProductLib().addProductReview(userId, req.body.productId, req.body);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async editProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const productId: string = req.params.id;
+      const reviewId: Types.ObjectId = req.params.reviewId;
+      const product: IProduct = await new ProductLib().editProductReview(userId, productId, reviewId, req.body);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async deleteProductReviewRating(req: Request, res: Response): Promise<void> {
+    try {
+      const userId: Types.ObjectId = req.body.loggedinUserId;
+      const productId: string = req.params.id;
+      const reviewId: Types.ObjectId = req.params.reviewId;
+      const product: IProduct = await new ProductLib().deleteReviewRating(userId, productId, reviewId);
+      res.locals.data = product;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'updateProduct');
+    }
+  }
+
+  public async getProductReviewRatingById(req: Request, res: Response): Promise<void> {
+    try {
+      const page: number = req.query.page ? Number(req.query.page) : 1;
+      const limit: number = req.query.limit ? Number(req.query.limit) : 10;
+      const product: IProduct = await new ProductLib().getProductById(req.params.id);
+      const reviewRatings: IReview[] = await new ProductLib().paginationOnArray(product.review_rating.review, page, limit);
+      const dataObj: IReviewRating = {
+        review: reviewRatings,
+        avg_rating: product.review_rating.avg_rating,
+        total_review: product.review_rating.total_review,
+      };
+      const pages: number = Math.ceil(dataObj.total_review / limit);
+      res.locals.data = dataObj;
+      res.locals.pagination = {
+        total: product.review_rating.review.length,
+        limit: limit,
+        page: page,
+        pages: pages === 0 ? 1 : pages,
+      };
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'getProducts');
+    }
   }
 }

@@ -11,7 +11,7 @@ const swagOptions: any = { explorer: false };
 const swaggerDocument: any = yaml.load('./swagger/swagger.yaml');
 
 if (process.env.NODE_ENV === 'production') {
-  swaggerDocument.host = 'https://sandip-shopping-app.herokuapp.com';
+  swaggerDocument.host = 'enigmatic-reef-16960.herokuapp.com';
 } else {
   swaggerDocument.host = `localhost:${process.env.PORT}`;
 }
