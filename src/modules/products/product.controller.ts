@@ -1,6 +1,8 @@
 import { Application, Request, Response } from 'express';
 import { PaginateOptions, PaginateResult, Types } from 'mongoose';
 import { BaseController } from '../BaseController';
+import { CartLib } from '../cart/cart.lib';
+import { ICart } from '../cart/cart.type';
 import { AuthHelper, ResponseHandler, Utils } from './../../helpers';
 import { CategoryLib } from './../category/category.lib';
 import { ProductLib } from './product.lib';
@@ -22,7 +24,7 @@ export class ProductController extends BaseController {
 
   public init(): void {
     const authHelper: AuthHelper = new AuthHelper();
-    this.router.get('/byCategoryId/:id', this.getProductsByCategoryId);
+    this.router.get('/byCategoryId/:id', authHelper.openGuard, this.getProductsByCategoryId);
     this.router.get('/home-list', this.getHomeList);
     this.router.get('/:id/details', this.getDetails);
     this.router.get('/',  authHelper.guard, this.getProducts);
@@ -147,7 +149,21 @@ export class ProductController extends BaseController {
       const utils: Utils = new Utils();
       const user: ProductLib = new ProductLib();
       const users: PaginateResult<IProduct> = await user.getProductsByCategoryId(req);
-      res.locals.data = users.docs;
+      // res.locals.data = users.docs;
+      // const users: PaginateResult<IProduct> = await user.getProduct(
+      //   filters,
+      //   options,
+      // );
+      const cartfilter: any = {};
+      cartfilter.user_id = req.body.loggedinUserId;
+      cartfilter.isDeleted = false;
+      if (req.body.loggedinUserId === undefined) {
+        res.locals.data = users.docs;
+      } else {
+        const userCart: ICart[] = await new CartLib().getCarts(cartfilter);
+        const data: IProduct[] = await user.getProductsWithCartInfo(users.docs, userCart);
+        res.locals.data = data;
+      }
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
