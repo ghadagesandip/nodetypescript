@@ -1,7 +1,7 @@
 import { PaginateResult, Types } from 'mongoose';
+import { ICart } from '../cart/cart.type';
 import { productModel } from './product.model';
 import { IProduct } from './product.type';
-import { ICart } from 'modules/cart/cart.type';
 
 const isDelete: any = { isDelete: false };
 
