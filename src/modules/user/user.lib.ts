@@ -1,6 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { PaginateResult } from 'mongoose';
+import { PaginateResult, Types } from 'mongoose';
+import { cartModel } from '../cart/cart.model';
+import { ICart } from '../cart/cart.type';
 import { Messages } from './../../constants';
 import { logger } from './../../logger';
 import { userModel, UserRole } from './user.model';

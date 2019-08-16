@@ -1,9 +1,6 @@
 import { expect, should } from 'chai';
 import * as dotenv from 'dotenv';
-import * as http from 'http';
 import * as request from 'supertest';
-import { App } from './../../App';
-import { logger } from './../../src/logger';
 
 dotenv.config({
   path: '.env.test',

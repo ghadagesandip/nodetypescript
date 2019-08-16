@@ -1,5 +1,6 @@
 import { ObjectID } from 'bson';
 import { PaginateOptions, PaginateResult, Types } from 'mongoose';
+import { ICart } from '../cart/cart.type';
 import { productModel } from './product.model';
 import { IFilter, IProduct, IReview, IReviewRating } from './product.type';
 
@@ -28,6 +29,28 @@ export class ProductLib {
     const productObj: IProduct = new productModel(data);
 
     return productObj.save();
+  }
+
+  public async getProductsWithCartInfo(product: IProduct[], userCart: ICart[]): Promise<IProduct[]> {
+    const productsWithCartInfo: IProduct[] = [];
+    product.forEach((ele: IProduct) => {
+      const resObj: any = {};
+      const cartDtata: ICart = userCart.find((o: ICart) => {
+        if (String(o.product_id._id) === String(ele._id)) {
+          return true;
+        }
+      });
+      if (cartDtata) {
+        resObj.data = ele;
+        resObj.info = { isInCart: true, quantity: cartDtata.quantity };
+      } else {
+        resObj.data = ele;
+        resObj.info = { isInCart: false, quantity: 0 };
+      }
+      productsWithCartInfo.push(resObj);
+    });
+
+    return productsWithCartInfo;
   }
 
   public async findByIdAndUpdate(
@@ -218,13 +241,13 @@ export class ProductLib {
       },
       {
         $addFields : {
-          brand_name: { $arrayElemAt: [ '$product_brand.name', 0 ] },
+          name: { $arrayElemAt: [ '$product_brand.name', 0 ] },
         },
       },
       {
         $project: {
           product_count: '$count',
-          brand_name: 1,
+          name: 1,
           _id: '$_id.brand',
         },
       },
