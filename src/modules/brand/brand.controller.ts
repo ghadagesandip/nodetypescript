@@ -43,7 +43,9 @@ export class BrandController extends BaseController {
   public async listBrands(req: Request, res: Response): Promise<void> {
     try {
       const brandLib: BrandLib = new BrandLib();
-      const brands: IBrand[] = await brandLib.getAllBrands();
+      const filters: any = {};
+      filters.category_id = req.query && req.query.category_id ? req.query.category_id : undefined;
+      const brands: IBrand[] = await brandLib.getAllBrands(filters);
       res.locals.data = brands;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {

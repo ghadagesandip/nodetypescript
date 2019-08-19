@@ -16,17 +16,17 @@ export class CartLib {
   public async getCarts(filters: any): Promise<ICart[]> {
     return cartModel.find(filters).populate('product_id', 'name price images discount brand');
   }
-  public async getCartsItemTotal(filters: any): Promise<any> {
-    return cartModel.aggregate([
-      { $match: {$and: [{user_id: Types.ObjectId(filters.user_id)}, {isDeleted: filters.isDeleted}]} },
-      {
-        $group:
-          {
-            _id:  '$user_id',
-            totalQuantity: { $sum: '$quantity' },
-          },
-      }]);
-  }
+  // public async getCartsItemTotal(filters: any): Promise<any> {
+  //   return cartModel.aggregate([
+  //     { $match: {$and: [{user_id: Types.ObjectId(filters.user_id)}, {isDeleted: filters.isDeleted}]} },
+  //     {
+  //       $group:
+  //         {
+  //           _id:  '$user_id',
+  //           totalQuantity: { $sum: '$quantity' },
+  //         },
+  //     }]);
+  // }
 
   public async add(data: ICart): Promise<ICart> {
     const cartObj: ICart = new cartModel(data);

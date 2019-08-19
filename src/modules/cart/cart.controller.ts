@@ -1,6 +1,7 @@
 import { Application, Request, Response } from 'express';
 import { PaginateResult, Types } from 'mongoose';
 import { BaseController } from '../BaseController';
+import { OrderLib } from '../order/order.lib';
 import { AuthHelper, ResponseHandler, Utils } from './../../helpers';
 import { CartLib } from './cart.lib';
 import { ICart } from './cart.type';
@@ -57,8 +58,9 @@ export class CartController extends BaseController {
       filters.user_id = req.body.loggedinUserId;
       filters.isDeleted = false;
       const cart: CartLib = new CartLib();
+      const order: OrderLib =  new OrderLib();
       const carts: ICart[] = await cart.getCarts(filters);
-      const totalItems: any = await cart.getCartsItemTotal(filters);
+      const totalItems: any = await order.getCartDetails(req.body.loggedinUserId);
       const resObj: object = {
         carts: carts,
         totalItems: totalItems,
