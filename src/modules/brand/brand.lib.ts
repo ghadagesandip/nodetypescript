@@ -9,8 +9,22 @@ const listFields: any = ['name', 'image', 'category_id', 'description'];
  * BrandLib
  */
 export class BrandLib {
-  public async getAllBrands(): Promise<IBrand[]> {
-    return brandModel.find({ ...isDelete }, listFields);
+  public async getAllBrands(filters: any): Promise<IBrand[]> {
+    let query: any = {};
+    if (filters.category_id) {
+      query = {
+        category_id: {
+          $in: [filters.category_id],
+        },
+        ...isDelete,
+      };
+    } else {
+      query = {
+        ...isDelete,
+      };
+    }
+
+    return brandModel.find(query, listFields);
   }
 
   public async getBrandById(id: string): Promise<IBrand> {

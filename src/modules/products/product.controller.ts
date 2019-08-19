@@ -27,7 +27,7 @@ export class ProductController extends BaseController {
     this.router.get('/byCategoryId/:id', authHelper.openGuard, this.getProductsByCategoryId);
     this.router.get('/home-list', this.getHomeList);
     this.router.get('/:id/details', this.getDetails);
-    this.router.get('/',  authHelper.guard, this.getProducts);
+    this.router.get('/',  authHelper.adminGuard, this.getProducts);
     this.router.put('/:id', authHelper.adminGuard, this.updateProduct);
     this.router.delete('/:id', authHelper.adminGuard, this.deleteProduct);
     this.router.get('/', authHelper.guard, this.getProducts);
