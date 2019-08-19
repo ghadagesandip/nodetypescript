@@ -1,9 +1,6 @@
 import { expect, should } from 'chai';
 import * as dotenv from 'dotenv';
-import * as http from 'http';
 import * as request from 'supertest';
-import { App } from './../../App';
-import { logger } from './../../src/logger';
 
 dotenv.config({
   path: '.env.test',
@@ -22,18 +19,6 @@ before(async () => {
   commonHeaders.Authorization = users.body.data.token;
 });
 
-// describe('User module', () => {
-//   describe('"usercontroller.getUsers()"', () => {
-//     it('should list users', async () => {
-//       try {
-//         const users: any = await request(server).get('/api/categories/dashboard-products');
-
-//       } catch (err) {
-//         expect(err.statusCode).to.be.equal(401);
-//       }
-//     });
-//   });
-// });
 describe('User module', () => {
   describe('"usercontroller.getUsers()"', () => {
     it('should list users', async () => {

@@ -38,6 +38,7 @@ export class ProductController extends BaseController {
     this.router.post('/addProductReview', authHelper.guard, this.addProductReviewRating);
     this.router.put('/:id/editProductReview/:reviewId', authHelper.guard, this.editProductReviewRating);
     this.router.delete('/:id/deleteProductReview/:reviewId', authHelper.guard, this.deleteProductReviewRating);
+
     this.router.post(
       '/',
       authHelper.adminGuard,
