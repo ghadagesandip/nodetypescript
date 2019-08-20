@@ -90,12 +90,9 @@ export class AuthController extends BaseController {
           code: '1234',
         },
       };
-      mailer
-        .sendEmail(options)
-        .then()
-        .catch();
+      const emailres: any = await mailer.sendEmail(options);
+      res.locals.data = emailres;
       ResponseHandler.JSONSUCCESS(req, res);
-      await mailer.sendEmail(options);
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'forgotPassword');
