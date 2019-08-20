@@ -30,7 +30,7 @@ export class EmailServer {
       );
     }
 
-    const info: any = await transporter.sendMail(mailOptions);
+    return transporter.sendMail(mailOptions);
   }
 
   /**
