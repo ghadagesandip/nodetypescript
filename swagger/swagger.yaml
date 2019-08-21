@@ -607,7 +607,12 @@ paths:
       deprecated: false
       produces:
       - application/json; charset=utf-8
-      parameters: []
+      parameters: 
+      - name: category_id
+        in: query
+        required: false
+        type: string
+        description: 'Filter by category id'
       responses:
         200:
           description: ''
@@ -3020,8 +3025,8 @@ paths:
                   updatedAt: 2019-08-09T10:22:04.057Z
                   __v: 0
                 totalItems:
-                - _id: 5d4baa6797544f7284637ee9
-                  totalQuantity: 21
+                - order_total_qty : 8,
+                  order_total_price: 31176
               message: Success
           headers:
             X-Powered-By:
@@ -3250,12 +3255,12 @@ paths:
         description: limit
       - name: brand
         in: query
-        required: true
+        required: false
         type: string
         description: brand id
       - name: id
         in: path
-        required: true
+        required: false
         type: string
         description: Category id
       - name: Content-Type
@@ -7102,8 +7107,8 @@ definitions:
           updatedAt: 2019-08-09T10:22:04.057Z
           __v: 0
         totalItems:
-        - _id: 5d4baa6797544f7284637ee9
-          totalQuantity: 21
+        - order_total_qty : 8,
+          order_total_price: 31176
       message: Success
     type: object
     properties:
@@ -7241,8 +7246,8 @@ definitions:
         updatedAt: 2019-08-09T10:22:04.057Z
         __v: 0
       totalItems:
-      - _id: 5d4baa6797544f7284637ee9
-        totalQuantity: 21
+      - order_total_qty : 8,
+        order_total_price: 31176
     type: object
     properties:
       carts:
@@ -7256,6 +7261,55 @@ definitions:
     required:
     - carts
     - totalItems
+  Cart:
+    title: Cart
+    example:
+      isDeleted: false
+      _id: 5d5a8310733cff1f30dfa0b9
+      product_id:
+        images:
+        - https://rukminim1.flixcart.com/image/128/128/jwfa5jk0/mobile/s/p/y/oppo-a5s-cph1909-original-imaffmvuqzb8hghf.jpeg?q=70
+        - https://rukminim1.flixcart.com/image/128/128/juip0nk0/mobile/z/d/f/oppo-a5s-cph1909-original-imaffmvwh7baqfrn.jpeg?q=70
+        - https://rukminim1.flixcart.com/image/128/128/jwfa5jk0/mobile/s/p/y/oppo-a5s-cph1909-original-imaffmvumxcqd5ga.jpeg?q=70
+        _id: 5d2b6651180b1562c5496122
+        name: OPPO A5s (Red, 32 GB)  (2 GB RAM)
+        price: 12990
+        discount: 30
+        brand: 5d3a8e958e63b419692033ce
+      quantity: 8
+      user_id: 5d4baa6797544f7284637ee9
+      createdAt: 2019-08-19T11:08:00.343Z
+      updatedAt: 2019-08-21T05:02:41.558Z
+      __v: 0
+    type: object
+    properties:
+      isDeleted:
+        type: boolean
+      _id:
+        type: string
+      product_id:
+        $ref: '#/definitions/ProductId'
+      quantity:
+        type: integer
+        format: int32
+      user_id:
+        type: string
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      __v:
+        type: integer
+        format: int32
+    required:
+    - isDeleted
+    - _id
+    - product_id
+    - quantity
+    - user_id
+    - createdAt
+    - updatedAt
+    - __v
   ProductId:
     title: ProductId
     example:
@@ -7308,6 +7362,22 @@ definitions:
     required:
     - product_id
     - quantity
+  TotalItem:
+    title: TotalItem
+    example:
+      order_total_qty: 8
+      order_total_price: 31176
+    type: object
+    properties:
+      order_total_qty:
+        type: integer
+        format: int32
+      order_total_price:
+        type: integer
+        format: int32
+    required:
+    - order_total_qty
+    - order_total_price  
   addtoCart:
     title: addtoCart
     example:
@@ -8011,6 +8081,30 @@ definitions:
     - createdAt
     - updatedAt
     - __v
+  CartItem:
+    title: CartItem
+    example:
+      _id: 5d52a0e82a93e6672140ec89
+      product_id:
+        _id: 5d2b2b19c1a9972bdefcd2b7
+        name: Redmi Note 6 Pro (Black, 64 GB)  (4 GB RAM)
+        price: 15999
+        discount: 25
+        brand:
+          _id: 5d3994adaa4de9491eefcc0d
+          name: Mi
+      qunatity: 4    
+    type: object
+    properties:
+      _id:
+        type: string
+      product_id:
+        $ref: '#/definitions/ProductId1'
+      qunatity:
+        type: number
+    required:
+    - _id
+    - product_id  
   ProductId1:
     title: ProductId1
     example:

@@ -44,8 +44,8 @@ export class PaymentsController extends BaseController {
   public async makePayment(req: Request, res: Response): Promise<void> {
     try {
       const orderLib: OrderLib = new OrderLib();
-      const token: Stripe.tokens.ICardToken = await orderLib.getToken(req.body.card);
-      const customer: Stripe.customers.ICustomer = await orderLib.getCustomer(req.body.email, token);
+      //const token: Stripe.tokens.ICardToken = await orderLib.getToken(req.body.card);
+      const customer: Stripe.customers.ICustomer = await orderLib.getCustomer(req.body.token);
       const charges: Stripe.charges.ICharge = await orderLib.debitCharges(req.body.amount, customer.id);
       res.locals.data = charges;
       ResponseHandler.JSONSUCCESS(req, res);

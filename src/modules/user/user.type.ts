@@ -12,11 +12,13 @@ export interface IUser extends Document {
 }
 
 export interface IUserRequest {
+  _id?: string;
   password?: string;
   email?: string;
   firstName?: string;
   lastName?: string;
   created_date?: Date;
   token?: string;
-  tmp_forgot_pass_code?: string;
+  tmp_forgot_pass_code?: number;
+  tmp_forgot_pass_datetime?: Date;
 }
