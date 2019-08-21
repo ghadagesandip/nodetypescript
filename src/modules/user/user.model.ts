@@ -34,7 +34,10 @@ export const userSchema: Schema = new Schema(
       default: UserRole.customer,
     },
     tmp_forgot_pass_code: {
-      type: String,
+      type: Number,
+    },
+    tmp_forgot_pass_datetime: {
+      type: Date,
     },
   },
   {

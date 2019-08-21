@@ -13,9 +13,9 @@ const stripe: Stripe = new Stripe(process.env.STRIPE_PAYMENT_GATEWAY_SECRET);
  * OrderLib
  */
 export class OrderLib {
-  public async getCustomer(email: string, token: Stripe.tokens.ICardToken): Promise<Stripe.customers.ICustomer> {
+  public async getCustomer(token: Stripe.tokens.ICardToken): Promise<Stripe.customers.ICustomer> {
     return stripe.customers.create({//create customer with card token and email
-      email: email,
+     // email: email,
       source: token.id,
     });
   }

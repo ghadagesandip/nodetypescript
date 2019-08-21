@@ -15,10 +15,10 @@ export class Utils {
     };
   }
 
-  public async getToken(): Promise<string> {
-    const buffer: Buffer = await this.generateRandomBytes();
+  public async getToken(): Promise<number> {
+    //const buffer: Buffer = await this.generateRandomBytes();
 
-    return buffer.toString('hex');
+    return (Math.floor((parseInt(crypto.randomBytes(1).toString('hex'), 16) / 1000) * 90000) + 10000);
   }
 
   public async generateRandomBytes(): Promise<any> {

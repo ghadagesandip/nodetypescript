@@ -1,10 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { PaginateResult, Types } from 'mongoose';
-import { cartModel } from '../cart/cart.model';
-import { ICart } from '../cart/cart.type';
 import { Messages } from './../../constants';
-import { logger } from './../../logger';
 import { userModel, UserRole } from './user.model';
 import { IUser, IUserRequest } from './user.type';
 
@@ -63,8 +60,23 @@ export class UserLib {
     return user.save();
   }
 
+  public async checkToken(token: number): Promise<IUser> {
+    return userModel.findOne({tmp_forgot_pass_code: token});
+  }
+
   public async deleteUser(id: string): Promise<IUser> {
     return userModel.findOneAndDelete({ _id: id });
+  }
+
+  public async checkExpiry(user: IUserRequest): Promise<string> {
+    const diff: number = ((new Date().getTime() / 1000) - (new Date(user.tmp_forgot_pass_datetime).getTime() / 1000)) / 60;
+    if (diff < 30) {
+      return jwt.sign({ id: user._id}, process.env.FORGOT_PASS_SECRET, {
+        expiresIn: '1h',
+      });
+    } else {
+      return Messages.TOKEN_EXPIRED;
+    }
   }
 
   public async loginUserAndCreateToken(

@@ -1,4 +1,6 @@
+import * as crypto from 'crypto';
 import { Application, Request, Response } from 'express';
+import { Messages } from '../../constants/messages';
 import { BaseController } from '../BaseController';
 import {
   AuthHelper,
@@ -38,6 +40,8 @@ export class AuthController extends BaseController {
       this.login,
     );
     this.router.post('/forgot-password', this.forgotPassword);
+    this.router.post('/reset-password', this.resetPassword);
+    this.router.get('/verify-token/:token', this.verifyToken);
   }
 
   public async signUp(req: Request, res: Response): Promise<void> {
@@ -77,17 +81,18 @@ export class AuthController extends BaseController {
       const utils: Utils = new Utils();
 
       const email: string = req.body.email ? req.body.email : null;
-      const tmpForgotPassCode: string = await utils.getToken();
+      const tmpForgotPassCode: number = await utils.getToken();
       const userData: IUser = await user.getUserByEmail(email);
       await user.updateUser(userData._id, {
         tmp_forgot_pass_code: tmpForgotPassCode,
+        tmp_forgot_pass_datetime: new Date(),
       });
       const options: any = {
         subject: 'Forgot Password',
         templateName: 'password-reset',
         to: userData.email,
         replace: {
-          code: '1234',
+          code: tmpForgotPassCode,
         },
       };
       const emailres: any = await mailer.sendEmail(options);
@@ -106,6 +111,25 @@ export class AuthController extends BaseController {
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'forgotPassword');
+    }
+  }
+
+  public async verifyToken(req: Request, res: Response): Promise<void> {
+    try {
+      const user: UserLib = new UserLib();
+      const verifyTokenVal: IUser = await user.checkToken(Number(req.params.token));
+      if (verifyTokenVal != null) {
+        const checkExpiryVal: string = await user.checkExpiry(verifyTokenVal);
+        res.locals.data = checkExpiryVal;
+        res.locals.message = checkExpiryVal === Messages.TOKEN_EXPIRED ? Messages.TOKEN_EXPIRED : Messages.TOKEN_VERIFIED;
+      } else {
+        res.locals.data = null;
+        res.locals.message = Messages.INVALID_TOKEN;
+      }
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (error) {
+      res.locals.data = error;
+      ResponseHandler.JSONERROR(req, res, 'verifyToken');
     }
   }
 }

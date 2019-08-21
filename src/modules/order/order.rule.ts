@@ -2,17 +2,10 @@ import { check } from 'express-validator/check';
 
 export const paymentsRule: any = {
   forAdd: [
-    check('email')
+    check('token')
       .not()
       .isEmpty()
-      .withMessage('Email is required'),
-    check('email')
-       .isEmail()
-       .withMessage('Provide valid email'),
-    check('card')
-      .not()
-      .isEmpty()
-      .withMessage('Card details are required'),
+      .withMessage('Token is required'),
     check('amount')
       .not()
       .isEmpty()
