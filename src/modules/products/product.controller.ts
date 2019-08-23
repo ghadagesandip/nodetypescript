@@ -158,13 +158,13 @@ export class ProductController extends BaseController {
       const cartfilter: any = {};
       cartfilter.user_id = req.body.loggedinUserId;
       cartfilter.isDeleted = false;
-      if (req.body.loggedinUserId === undefined) {
-        res.locals.data = users.docs;
-      } else {
-        const userCart: ICart[] = await new CartLib().getCarts(cartfilter);
-        const data: IProduct[] = await user.getProductsWithCartInfo(users.docs, userCart);
-        res.locals.data = data;
-      }
+      //if (req.body.loggedinUserId === undefined) {
+       // res.locals.data = users.docs;
+      //} else {
+      const userCart: ICart[] = await new CartLib().getCarts(cartfilter);
+      const data: IProduct[] = await user.getProductsWithCartInfo(users.docs, userCart);
+      res.locals.data = data;
+     // }
       res.locals.pagination = utils.getPaginateResponse(users);
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {

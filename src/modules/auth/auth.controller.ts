@@ -40,7 +40,7 @@ export class AuthController extends BaseController {
       this.login,
     );
     this.router.post('/forgot-password', this.forgotPassword);
-    this.router.post('/reset-password', this.resetPassword);
+    this.router.post('/reset-password', authHelper.resetPasswordGuard , this.resetPassword);
     this.router.get('/verify-token/:token', this.verifyToken);
   }
 
@@ -107,10 +107,14 @@ export class AuthController extends BaseController {
   public async resetPassword(req: Request, res: Response): Promise<void> {
     try {
       const user: UserLib = new UserLib();
-      const mailer: EmailServer = new EmailServer();
+      const password: string = await user.generateHash(req.body.password);
+      const updatedUser: IUser = await user.updateUser(req.body.loggedinUserId, {
+        password: password,
+      });
+      res.locals.data = updatedUser;
     } catch (err) {
       res.locals.data = err;
-      ResponseHandler.JSONERROR(req, res, 'forgotPassword');
+      ResponseHandler.JSONERROR(req, res, 'resetPassword');
     }
   }
 

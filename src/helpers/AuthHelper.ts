@@ -107,4 +107,30 @@ export class AuthHelper {
       ResponseHandler.JSONERROR(req, res, 'Authorization');
     }
   }
+
+  public async resetPasswordGuard(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const token: string = req.headers.authorization || req.query.token;
+      if (token) {
+        const auth: any = jwt.verify(token, process.env.FORGOT_PASS_SECRET);
+        if (auth) {
+          req.body.loggedinUserId = auth.id;
+          next();
+        } else {
+          throw new Error(Messages.INVALID_CREDENTIALS);
+        }
+      } else {
+        throw new Error(Messages.INVALID_CREDENTIALS);
+      }
+    } catch (err) {
+      res.locals.data = err;
+      res.locals.message = 'AuthenticationError';
+      res.locals.statusCode = HttpStatus.UNAUTHORIZED;
+      ResponseHandler.JSONERROR(req, res, 'Authorization');
+    }
+  }
 }
