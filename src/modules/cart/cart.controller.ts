@@ -26,6 +26,7 @@ export class CartController extends BaseController {
     this.router.get('/pagination', this.getPaginatedCarts);
     this.router.get('/', this.getCarts);
     this.router.delete('/', this.deleteCartItem);
+    this.router.delete('/remove-item/:id', this.removeItem);
   }
 
   public async getPaginatedCarts(req: Request, res: Response): Promise<void> {
@@ -106,7 +107,7 @@ export class CartController extends BaseController {
     try {
       const deletedProduct: object = await new CartLib().deleteCustomerCart(id);
       if (!deletedProduct) {
-        throw new Error('Invalid product id passed.');
+        throw new Error('Invalid id passed.');
       }
       res.locals.data = deletedProduct;
       ResponseHandler.JSONSUCCESS(req, res);
@@ -114,5 +115,22 @@ export class CartController extends BaseController {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'deleteCartItem');
     }
+  }
+
+  /**
+   * Remove item from user cart
+   * @param req
+   * @param res
+   */
+  public async removeItem(req: Request, res: Response): Promise<any> {
+   try {
+     const cart: CartLib = new CartLib();
+     const cartItemRemove: ICart = await cart.removeCartItem(req.params.id);
+     res.locals.data = cartItemRemove;
+     ResponseHandler.JSONSUCCESS(req, res);
+   } catch (error) {
+    res.locals.data = error;
+    ResponseHandler.JSONERROR(req, res, 'removeItem');
+   }
   }
 }

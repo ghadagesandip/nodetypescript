@@ -60,6 +60,14 @@ export class UserLib {
     return user.save();
   }
 
+  public async removeTokenAndTime(userId: Types.ObjectId): Promise<any> {
+    const data: object = {
+      tmp_forgot_pass_code: undefined,
+      tmp_forgot_pass_datetime: undefined,
+    };
+    await userModel.findByIdAndUpdate(userId, {$set: data}, { new: true});
+  }
+
   public async checkToken(token: number): Promise<IUser> {
     return userModel.findOne({tmp_forgot_pass_code: token});
   }

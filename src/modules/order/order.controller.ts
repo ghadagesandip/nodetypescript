@@ -47,7 +47,8 @@ export class PaymentsController extends BaseController {
       //const token: Stripe.tokens.ICardToken = await orderLib.getToken(req.body.card);
       const customer: Stripe.customers.ICustomer = await orderLib.getCustomer(req.body.token);
       const charges: Stripe.charges.ICharge = await orderLib.debitCharges(req.body.amount, customer.id);
-      res.locals.data = charges;
+      const orderRes: IOrder = await orderLib.updateOrderDetails(charges, req.body.order_id);
+      res.locals.data = orderRes;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;

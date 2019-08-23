@@ -34,6 +34,16 @@ export class OrderLib {
     });
   }
 
+  public async updateOrderDetails(charges: Stripe.charges.ICharge, orderId: Types.ObjectId): Promise<IOrder> {
+    const data: object = {
+      order_status: 'success',
+      receipt_url: charges.receipt_url,
+      transaction_id: charges.id,
+    };
+
+    return orderModel.findByIdAndUpdate(orderId, {$set: data}, {new: true});
+  }
+
   public async getCartDetails(userId: string): Promise<any> {
     return cartModel.aggregate([
       { $match: {$and: [{user_id: Types.ObjectId(userId)}, {isDeleted: false}]} },
