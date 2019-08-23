@@ -111,7 +111,9 @@ export class AuthController extends BaseController {
       const updatedUser: IUser = await user.updateUser(req.body.loggedinUserId, {
         password: password,
       });
+      await user.removeTokenAndTime(req.body.loggedinUserId);
       res.locals.data = updatedUser;
+      ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
       res.locals.data = err;
       ResponseHandler.JSONERROR(req, res, 'resetPassword');

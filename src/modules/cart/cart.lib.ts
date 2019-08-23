@@ -47,6 +47,10 @@ export class CartLib {
     return cartModel.findOne({user_id: data.user_id , product_id: data.product_id, isDeleted: false});
   }
 
+  public async removeCartItem(id: Types.ObjectId): Promise<any> {
+    return cartModel.remove({_id: id});
+  }
+
   public async deleteCustomerCart(id: Types.ObjectId): Promise<object> {
     return cartModel.remove({user_id: id});
   }
