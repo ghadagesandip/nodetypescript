@@ -100,12 +100,12 @@ export class UserLib {
       if (isValidPass) {
         let token: string;
         if (user.userRole === UserRole.admin) {
-          token = jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.ADMIN_SECRET, {
+          token = await jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.ADMIN_SECRET, {
             expiresIn: '24h',
           });
           user.password = undefined;
         } else {
-          token = jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.SECRET, {
+          token = await jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.SECRET, {
             expiresIn: '24h',
           });
           user.password = undefined;
@@ -121,6 +121,7 @@ export class UserLib {
   }
 
   public async signOut(token: string): Promise<boolean> {
+
     return jwtr.destroy(token);
   }
 }

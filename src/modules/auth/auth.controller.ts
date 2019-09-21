@@ -70,7 +70,7 @@ export class AuthController extends BaseController {
     try {
       const user: UserLib = new UserLib();
       const token: string = req.headers.authorization || req.query.token;
-      logger.info('token', token);
+      logger.info({'token id': token});
       const loggedInUser: any = await user.signOut(token);
       res.locals.data = loggedInUser;
       ResponseHandler.JSONSUCCESS(req, res);

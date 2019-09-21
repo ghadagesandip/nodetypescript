@@ -40,7 +40,7 @@ export class AuthHelper {
       const token: string = req.headers.authorization || req.query.token;
       logger.info('token', token);
       if (token) {
-        const auth: any = jwtr.verify(token, process.env.SECRET);
+        const auth: any = await jwtr.verify(token, process.env.SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();
@@ -65,9 +65,9 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
-      logger.info('token ', JSON.stringify(token));
+      logger.info({'token ' : token});
       if (token) {
-        const auth: any = jwtr.verify(token, process.env.ADMIN_SECRET);
+        const auth: any = await jwtr.verify(token, process.env.ADMIN_SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();
@@ -93,7 +93,7 @@ export class AuthHelper {
     try {
       const token: string = req.headers.authorization || req.query.token;
       if (token) {
-        const auth: any = jwtr.verify(token, process.env.SECRET);
+        const auth: any = await jwtr.verify(token, process.env.SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();
@@ -119,7 +119,7 @@ export class AuthHelper {
     try {
       const token: string = req.headers.authorization || req.query.token;
       if (token) {
-        const auth: any = jwtr.verify(token, process.env.FORGOT_PASS_SECRET);
+        const auth: any = await jwtr.verify(token, process.env.FORGOT_PASS_SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();
