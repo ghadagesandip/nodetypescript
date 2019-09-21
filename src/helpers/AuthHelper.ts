@@ -38,6 +38,7 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
+      logger.info('token', token);
       if (token) {
         const auth: any = jwtr.verify(token, process.env.SECRET);
         if (auth) {
@@ -64,6 +65,7 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
+      logger.info('token ', JSON.stringify(token));
       if (token) {
         const auth: any = jwtr.verify(token, process.env.ADMIN_SECRET);
         if (auth) {

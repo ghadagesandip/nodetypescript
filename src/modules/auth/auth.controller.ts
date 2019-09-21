@@ -8,6 +8,7 @@ import {
   ResponseHandler,
   Utils,
 } from './../../helpers';
+import { logger } from './../../logger';
 import { UserLib } from './../user/user.lib';
 import { userRules } from './../user/user.rules';
 import { IUser } from './../user/user.type';
@@ -27,21 +28,12 @@ export class AuthController extends BaseController {
 
   public init(): void {
     const authHelper: AuthHelper = new AuthHelper();
-    this.router.post(
-      '/sign-up',
-      userRules.forSignUser,
-      authHelper.validation,
-      this.signUp,
-    );
-    this.router.post(
-      '/login',
-      userRules.forSignIn,
-      authHelper.validation,
-      this.login,
-    );
+    this.router.post('/sign-up', userRules.forSignUser, authHelper.validation, this.signUp);
+    this.router.post('/login', userRules.forSignIn, authHelper.validation, this.login);
     this.router.post('/forgot-password', this.forgotPassword);
     this.router.post('/reset-password', authHelper.resetPasswordGuard , this.resetPassword);
     this.router.get('/verify-token/:token', this.verifyToken);
+    this.router.post('/logout', this.logOut);
   }
 
   public async signUp(req: Request, res: Response): Promise<void> {
@@ -65,6 +57,21 @@ export class AuthController extends BaseController {
         email,
         password,
       );
+      res.locals.data = loggedInUser;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.errorCode = 401;
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'login');
+    }
+  }
+
+  public async logOut(req: Request, res: Response): Promise<void> {
+    try {
+      const user: UserLib = new UserLib();
+      const token: string = req.headers.authorization || req.query.token;
+      logger.info('token', token);
+      const loggedInUser: any = await user.signOut(token);
       res.locals.data = loggedInUser;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {

@@ -119,4 +119,8 @@ export class UserLib {
       throw new Error(Messages.INVALID_CREDENTIALS);
     }
   }
+
+  public async signOut(token: string): Promise<boolean> {
+    return jwtr.destroy(token);
+  }
 }
