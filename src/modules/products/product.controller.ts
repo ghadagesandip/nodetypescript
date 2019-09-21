@@ -39,12 +39,7 @@ export class ProductController extends BaseController {
     this.router.put('/:id/editProductReview/:reviewId', authHelper.guard, this.editProductReviewRating);
     this.router.delete('/:id/deleteProductReview/:reviewId', authHelper.guard, this.deleteProductReviewRating);
 
-    this.router.post(
-      '/',
-      authHelper.adminGuard,
-      authHelper.validation,
-      this.addProduct,
-    );
+    this.router.post('/', authHelper.adminGuard, authHelper.validation, this.addProduct);
   }
 
   public async getProducts(req: Request, res: Response): Promise<void> {

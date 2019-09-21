@@ -5,8 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "build-ts": "tsc -p .",
-    "prestart":"copyfiles views/**/*.pug dist/",
-    "postinstall": "npm run build-ts && npm run prestart",    
+    "prestart": "copyfiles views/**/*.pug dist/",
+    "postinstall": "npm run build-ts && npm run prestart",
     "start": "npm run serve",
     "serve": "node dist/server.js",
     "watch": "nodemon --watch 'src/**/*.ts' --exec ts-node server.ts",

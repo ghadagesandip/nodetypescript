@@ -186,6 +186,7 @@ export const productSchema: Schema = new Schema({
   images: [
     {
       type: String,
+      required: true,
     },
   ],
   warranty: {
