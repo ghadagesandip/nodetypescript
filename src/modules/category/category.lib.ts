@@ -58,9 +58,6 @@ export class CategoryLib {
               $group: { _id: '$brand' , product: { $first: '$$ROOT' }},
             },
             {
-              $limit: 10,
-            },
-            {
               $lookup:
               {
                 from: 'brands',
@@ -75,6 +72,9 @@ export class CategoryLib {
                 name: { $arrayElemAt: [ '$brand.name', 0 ] },
                 _id: 0,
               },
+            },
+            {
+              $limit: 4,
             },
           ],
         },

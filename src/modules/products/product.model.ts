@@ -21,6 +21,7 @@ const generalSchema: Schema = new Schema({
   sim_type: String,
   touchScreen: String,
   quick_charging: String,
+  description: String,
 });
 
 const displaySchema: Schema = new Schema({

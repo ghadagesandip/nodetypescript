@@ -43,7 +43,7 @@ export class UserController extends BaseController {
 
       const options: any = {
         page: req.query.page ? Number(req.query.page) : 1,
-        limit: req.query.limit ? Number(req.query.limit) : 2,
+        limit: req.query.limit ? Number(req.query.limit) : 10,
       };
       const user: UserLib = new UserLib();
       const users: PaginateResult<IUser> = await user.getUsers(

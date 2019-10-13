@@ -78,7 +78,7 @@ export class UserLib {
   public async checkExpiry(user: IUserRequest): Promise<string> {
     const diff: number = ((new Date().getTime() / 1000) - (new Date(user.tmp_forgot_pass_datetime).getTime() / 1000)) / 60;
     if (diff < 30) {
-      return jwtr.sign({ id: user._id}, process.env.FORGOT_PASS_SECRET, {
+      return jwtr.sign({ id: user._id, jti: 'test'}, process.env.FORGOT_PASS_SECRET, {
         expiresIn: '1h',
       });
     } else {
@@ -99,17 +99,17 @@ export class UserLib {
       );
       if (isValidPass) {
         let token: string;
+        let SECRET: string;
+
         if (user.userRole === UserRole.admin) {
-          token = await jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.ADMIN_SECRET, {
-            expiresIn: '24h',
-          });
-          user.password = undefined;
+          SECRET = process.env.ADMIN_SECRET;
         } else {
-          token = await jwtr.sign({ id: user._id, userRole: user.userRole }, process.env.SECRET, {
-            expiresIn: '24h',
-          });
-          user.password = undefined;
+          SECRET = process.env.SECRET;
         }
+        user.password = undefined;
+        token = await jwtr.sign({ id: user._id, userRole: user.userRole, jti: 'test' }, SECRET, {
+          expiresIn: '24h',
+        });
 
         return { user, token };
       } else {

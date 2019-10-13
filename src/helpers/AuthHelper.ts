@@ -65,7 +65,7 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
-      logger.info({'token ' : token});
+      logger.info({'token received' : token});
       if (token) {
         const auth: any = await jwtr.verify(token, process.env.ADMIN_SECRET);
         if (auth) {
