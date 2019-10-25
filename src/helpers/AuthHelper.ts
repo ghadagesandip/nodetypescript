@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Result, validationResult } from 'express-validator/check';
 import * as HttpStatus from 'http-status-codes';
 import { Messages } from './../constants/messages';
+import { isBacKlisted, redisClient } from './../helpers/redis';
 import { logger } from './../logger';
 import { jwtr } from './jwtr';
 import { ResponseHandler } from './response.handler';
@@ -42,6 +43,8 @@ export class AuthHelper {
       if (token) {
         const auth: any = await jwtr.verify(token, process.env.SECRET);
         if (auth) {
+          const blackListed: Boolean = await isBacKlisted(auth.id, token);
+          logger.info({' blackListed ': blackListed});
           req.body.loggedinUserId = auth.id;
           next();
         } else {
@@ -65,10 +68,13 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
-      logger.info({'token received' : token});
       if (token) {
         const auth: any = await jwtr.verify(token, process.env.ADMIN_SECRET);
         if (auth) {
+          const blackListed: Boolean = await isBacKlisted(auth.id, token);
+          if (blackListed) {
+            throw new Error(Messages.INVALID_CREDENTIALS);
+          }
           req.body.loggedinUserId = auth.id;
           next();
         } else {

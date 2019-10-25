@@ -33,7 +33,8 @@ export class AuthController extends BaseController {
     this.router.post('/forgot-password', this.forgotPassword);
     this.router.post('/reset-password', authHelper.resetPasswordGuard , this.resetPassword);
     this.router.get('/verify-token/:token', this.verifyToken);
-    this.router.post('/logout', this.logOut);
+    this.router.post('/admin-logout', authHelper.adminGuard, this.adminLogOut);
+    this.router.post('/logout', authHelper.guard, this.logOut);
   }
 
   public async signUp(req: Request, res: Response): Promise<void> {
@@ -66,11 +67,25 @@ export class AuthController extends BaseController {
     }
   }
 
+  public async adminLogOut(req: Request, res: Response): Promise<void> {
+    try {
+      const user: UserLib = new UserLib();
+      const token: string = req.headers.authorization || req.query.token;
+      const loggedInUser: any = await user.signOut(token, 'admin');
+      res.locals.data = loggedInUser;
+      ResponseHandler.JSONSUCCESS(req, res);
+    } catch (err) {
+      res.locals.errorCode = 401;
+      res.locals.data = err;
+      ResponseHandler.JSONERROR(req, res, 'login');
+    }
+  }
+
   public async logOut(req: Request, res: Response): Promise<void> {
     try {
       const user: UserLib = new UserLib();
       const token: string = req.headers.authorization || req.query.token;
-      const loggedInUser: any = await user.signOut(token);
+      const loggedInUser: any = await user.signOut(token, 'user');
       res.locals.data = loggedInUser;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
