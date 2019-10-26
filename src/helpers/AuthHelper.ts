@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { Result, validationResult } from 'express-validator/check';
 import * as HttpStatus from 'http-status-codes';
+import * as jwt from 'jsonwebtoken';
 import { Messages } from './../constants/messages';
 import { isBacKlisted, redisClient } from './../helpers/redis';
 import { logger } from './../logger';
-import { jwtr } from './jwtr';
 import { ResponseHandler } from './response.handler';
 
 /**
@@ -39,9 +39,8 @@ export class AuthHelper {
   ): Promise<void> {
     try {
       const token: string = req.headers.authorization || req.query.token;
-      logger.info('token', token);
       if (token) {
-        const auth: any = await jwtr.verify(token, process.env.SECRET);
+        const auth: any = jwt.verify(token, process.env.SECRET);
         if (auth) {
           const blackListed: Boolean = await isBacKlisted(auth.id, token);
           logger.info({' blackListed ': blackListed});
@@ -69,7 +68,7 @@ export class AuthHelper {
     try {
       const token: string = req.headers.authorization || req.query.token;
       if (token) {
-        const auth: any = await jwtr.verify(token, process.env.ADMIN_SECRET);
+        const auth: any = jwt.verify(token, process.env.ADMIN_SECRET);
         if (auth) {
           const blackListed: Boolean = await isBacKlisted(auth.id, token);
           if (blackListed) {
@@ -99,7 +98,7 @@ export class AuthHelper {
     try {
       const token: string = req.headers.authorization || req.query.token;
       if (token) {
-        const auth: any = await jwtr.verify(token, process.env.SECRET);
+        const auth: any = jwt.verify(token, process.env.SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();
@@ -125,7 +124,7 @@ export class AuthHelper {
     try {
       const token: string = req.headers.authorization || req.query.token;
       if (token) {
-        const auth: any = await jwtr.verify(token, process.env.FORGOT_PASS_SECRET);
+        const auth: any = jwt.verify(token, process.env.FORGOT_PASS_SECRET);
         if (auth) {
           req.body.loggedinUserId = auth.id;
           next();

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import { PaginateResult, Types } from 'mongoose';
 import { Messages } from './../../constants';
-import { jwtr } from './../../helpers/jwtr';
 import { redisClient } from './../../helpers/redis';
 import { logger } from './../../logger';
 import { userModel, UserRole } from './user.model';
@@ -80,7 +80,7 @@ export class UserLib {
   public async checkExpiry(user: IUserRequest): Promise<string> {
     const diff: number = ((new Date().getTime() / 1000) - (new Date(user.tmp_forgot_pass_datetime).getTime() / 1000)) / 60;
     if (diff < 30) {
-      return jwtr.sign({ id: user._id, jti: 'test'}, process.env.FORGOT_PASS_SECRET, {
+      return jwt.sign({ id: user._id, jti: 'test'}, process.env.FORGOT_PASS_SECRET, {
         expiresIn: '1h',
       });
     } else {
@@ -109,7 +109,7 @@ export class UserLib {
           SECRET = process.env.SECRET;
         }
         user.password = undefined;
-        token = await jwtr.sign({ id: user._id, userRole: user.userRole, jti: 'test' }, SECRET, {
+        token = jwt.sign({ id: user._id, userRole: user.userRole, jti: 'test' }, SECRET, {
           expiresIn: '24h',
         });
 
@@ -122,11 +122,11 @@ export class UserLib {
     }
   }
 
-  public async signOut(token: string, userType: string): Promise<boolean> {
+  public async signOut(token: string, userType: string): Promise<any> {
 
     const SECRET: string = userType === 'user' ? process.env.SECRET  : process.env.ADMIN_SECRET;
 
-    const auth: any = await jwtr.verify(token, SECRET);
+    const auth: any = jwt.verify(token, SECRET);
     logger.info({user_data: auth});
     redisClient.set(`blacklist_token_${auth.id}`, token);
 
