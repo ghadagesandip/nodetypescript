@@ -5,4 +5,5 @@ logs/
 .env
 .env.*
 !.env.example
-coverage
+.nyc_output/
+coverage/

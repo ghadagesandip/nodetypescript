@@ -3,14 +3,14 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": false,
-    "target": "es6",
-    "sourceMap": false,
+    "target": "es2016",
+    "sourceMap": true,
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "baseUrl": "./src"
   },
-  "include": ["src/**/*.ts", "tests/**/*.spec.ts", "server.ts", "App.ts"],
+  "include": ["src/**/*.ts", "test/**/*.spec.ts", "server.ts", "App.ts"],
   "exclude": ["node_modules"]
 }
