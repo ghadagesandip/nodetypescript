@@ -101,7 +101,7 @@ export class BrandController extends BaseController {
   public async updateBrand(req: Request, res: Response): Promise<void> {
     const body: IBrand = req.body;
     const id: Types.ObjectId = Types.ObjectId(req.params.id);
-    
+
     try {
       const brand: any = await new BrandLib().findByIdAndUpdate(id, body);
       res.locals.data = brand;

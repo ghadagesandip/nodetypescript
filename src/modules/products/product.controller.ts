@@ -257,7 +257,7 @@ export class ProductController extends BaseController {
     try {
       const page: number = req.query.page ? Number(req.query.page) : 1;
       const limit: number = req.query.limit ? Number(req.query.limit) : 10;
-      const id:Types.ObjectId = Types.ObjectId(req.params.id);
+      const id: Types.ObjectId = Types.ObjectId(req.params.id);
       const product: IProduct = await new ProductLib().getProductById(id);
       const reviewRatings: IReview[] = await new ProductLib().paginationOnArray(product.review_rating.review, page, limit);
       const dataObj: IReviewRating = {
