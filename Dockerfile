@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:8.9.3
 
 RUN mkdir -p /home/node/app
 
