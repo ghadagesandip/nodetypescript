@@ -2,7 +2,6 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { PaginateResult, Types } from 'mongoose';
 import { Messages } from './../../constants';
-import { redisClient } from './../../helpers/redis';
 import { logger } from './../../logger';
 import { userModel, UserRole } from './user.model';
 import { IUser, IUserRequest } from './user.type';
@@ -128,7 +127,6 @@ export class UserLib {
 
     const auth: any = jwt.verify(token, SECRET);
     logger.info({user_data: auth});
-    redisClient.set(`blacklist_token_${auth.id}`, token);
 
     return true;
   }

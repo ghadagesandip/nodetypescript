@@ -92,7 +92,7 @@ export class ProductLib {
     );
   }
 
-  public async getProductById(id: string): Promise<IProduct> {
+  public async getProductById(id: Types.ObjectId): Promise<IProduct> {
     return productModel.findOne({
       _id: id,
     }).populate({path: 'brand', model: 'Brand'});
@@ -121,7 +121,7 @@ export class ProductLib {
     );
   }
 
-  public async addProductReview(userId: ObjectID, productId: string, data: IReview): Promise<IProduct> {
+  public async addProductReview(userId: ObjectID, productId: Types.ObjectId, data: IReview): Promise<IProduct> {
     const ratingObj: IReview = {
       user_id: userId,
       rating: data.rating,
@@ -151,7 +151,7 @@ export class ProductLib {
     return productModel.findOneAndUpdate(condition, product);
   }
 
-  public async editProductReview(userId: ObjectID, productId: string, reviewId: ObjectID, data: IReview): Promise<IProduct> {
+  public async editProductReview(userId: ObjectID, productId: Types.ObjectId, reviewId: Types.ObjectId, data: IReview): Promise<IProduct> {
     const ratingObj: IReview = {
       user_id: userId,
       rating: data.rating,
@@ -167,7 +167,7 @@ export class ProductLib {
     return productModel.findOneAndUpdate(condition, product);
   }
 
-  public async deleteReviewRating(userId: ObjectID, productId: string, reviewId: ObjectID): Promise<IProduct> {
+  public async deleteReviewRating(userId: ObjectID, productId: Types.ObjectId, reviewId: ObjectID): Promise<IProduct> {
     const product: IProduct = await this.getProductById(productId);
     product.review_rating.review.forEach((element: any, index: number) => {
       if (element.user_id && element.user_id.toString() === userId && element._id.toString() === reviewId) {

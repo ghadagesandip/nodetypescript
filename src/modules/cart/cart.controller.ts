@@ -125,7 +125,8 @@ export class CartController extends BaseController {
   public async removeItem(req: Request, res: Response): Promise<any> {
    try {
      const cart: CartLib = new CartLib();
-     const cartItemRemove: ICart = await cart.removeCartItem(req.params.id);
+     const id: Types.ObjectId = Types.ObjectId(req.params.id);
+     const cartItemRemove: ICart = await cart.removeCartItem(id);
      res.locals.data = cartItemRemove;
      ResponseHandler.JSONSUCCESS(req, res);
    } catch (error) {

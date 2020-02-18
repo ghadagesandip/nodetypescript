@@ -108,7 +108,7 @@ export class ProductController extends BaseController {
    */
   public async updateProduct(req: Request, res: Response): Promise<void> {
     const body: IProduct = req.body;
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = Types.ObjectId(req.params.id);
     try {
       const product: any = await new ProductLib().findByIdAndUpdate(id, body);
       res.locals.data = product;
@@ -125,7 +125,7 @@ export class ProductController extends BaseController {
    * @param res
    */
   public async deleteProduct(req: Request, res: Response): Promise<void> {
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = Types.ObjectId(req.params.id);
     try {
       const data: any = { isDelete: true };
       const deletedProduct: any = await new ProductLib().findByIdAndUpdate(
@@ -175,7 +175,8 @@ export class ProductController extends BaseController {
    */
   public async getDetails(req: Request, res: Response): Promise<void> {
     try {
-      const product: any = await new ProductLib().getProductById(req.params.id);
+      const id: Types.ObjectId = Types.ObjectId(req.params.id);
+      const product: any = await new ProductLib().getProductById(id);
       res.locals.data = product;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
@@ -214,7 +215,8 @@ export class ProductController extends BaseController {
   public async addProductReviewRating(req: Request, res: Response): Promise<void> {
     try {
       const userId: Types.ObjectId = req.body.loggedinUserId;
-      const product: IProduct = await new ProductLib().addProductReview(userId, req.body.productId, req.body);
+      const productId: Types.ObjectId = Types.ObjectId(req.body.productId);
+      const product: IProduct = await new ProductLib().addProductReview(userId, productId, req.body);
       res.locals.data = product;
       ResponseHandler.JSONSUCCESS(req, res);
     } catch (err) {
@@ -226,8 +228,8 @@ export class ProductController extends BaseController {
   public async editProductReviewRating(req: Request, res: Response): Promise<void> {
     try {
       const userId: Types.ObjectId = req.body.loggedinUserId;
-      const productId: string = req.params.id;
-      const reviewId: Types.ObjectId = req.params.reviewId;
+      const productId: Types.ObjectId = Types.ObjectId(req.params.id);
+      const reviewId: Types.ObjectId = Types.ObjectId(req.params.reviewId);
       const product: IProduct = await new ProductLib().editProductReview(userId, productId, reviewId, req.body);
       res.locals.data = product;
       ResponseHandler.JSONSUCCESS(req, res);
@@ -240,8 +242,8 @@ export class ProductController extends BaseController {
   public async deleteProductReviewRating(req: Request, res: Response): Promise<void> {
     try {
       const userId: Types.ObjectId = req.body.loggedinUserId;
-      const productId: string = req.params.id;
-      const reviewId: Types.ObjectId = req.params.reviewId;
+      const productId: Types.ObjectId = Types.ObjectId(req.params.id);
+      const reviewId: Types.ObjectId = Types.ObjectId(req.params.reviewId);
       const product: IProduct = await new ProductLib().deleteReviewRating(userId, productId, reviewId);
       res.locals.data = product;
       ResponseHandler.JSONSUCCESS(req, res);
@@ -255,7 +257,8 @@ export class ProductController extends BaseController {
     try {
       const page: number = req.query.page ? Number(req.query.page) : 1;
       const limit: number = req.query.limit ? Number(req.query.limit) : 10;
-      const product: IProduct = await new ProductLib().getProductById(req.params.id);
+      const id:Types.ObjectId = Types.ObjectId(req.params.id);
+      const product: IProduct = await new ProductLib().getProductById(id);
       const reviewRatings: IReview[] = await new ProductLib().paginationOnArray(product.review_rating.review, page, limit);
       const dataObj: IReviewRating = {
         review: reviewRatings,

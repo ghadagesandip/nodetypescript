@@ -102,7 +102,7 @@ export class CategoryController extends BaseController {
    */
   public async updateCategory(req: Request, res: Response): Promise<void> {
     const body: ICategory = req.body;
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = Types.ObjectId(req.params.id);
     try {
       const category: any = await new CategoryLib().findByIdAndUpdate(id, body);
       res.locals.data = category;
@@ -119,7 +119,7 @@ export class CategoryController extends BaseController {
    * @param res
    */
   public async deleteCategory(req: Request, res: Response): Promise<void> {
-    const id: Types.ObjectId = req.params.id;
+    const id: Types.ObjectId = Types.ObjectId(req.params.id);
     try {
       const data: any = { isDelete: true };
       const deletedCategory: any = await new CategoryLib().findByIdAndUpdate(
